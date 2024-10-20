@@ -7,6 +7,15 @@ public class Disciplina {
     private String horario;
     private String horasDiarias;
     private int codigoCurso;
+    private enum diaSemanaa{ //O Nome está "diaSemanaa" pra não conflitar com o código já escrito.
+    	Domingo,
+    	Segunda,
+    	Terça,
+    	Quarta,
+    	Quinta,
+    	Sexta,
+    	Sábado
+    }
 
     public Disciplina(int codigo, String nome, int diaSemana, String horario, String horasDiarias, int codigoCurso) {
         this.codigo = codigo;
@@ -15,6 +24,10 @@ public class Disciplina {
         this.horario = horario;
         this.horasDiarias = horasDiarias;
         this.codigoCurso = codigoCurso;
+    }
+    
+    public Disciplina() {
+    	this(0,"",0,"","",0);
     }
 
     public int getCodigo() {

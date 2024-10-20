@@ -1,9 +1,13 @@
 package br.edu.fateczl.ed.Controller;
 
+import java.io.IOException;
+
 import br.edu.fateczl.ed.Models.Curso;
 import model.Lista;
 
 public class CursosController {
+	
+	String fileName = "cursos.csv";
 
 	public CursosController() {
 		super();
@@ -32,7 +36,7 @@ public class CursosController {
 		}
 	}
 	
-	public void atualizaArquivoProf(Lista<Curso> listProf) {
+	public void atualizaArquivoProf(Lista<Curso> listProf) throws IOException{
 		
 	}
 	

@@ -12,6 +12,10 @@ public class Professor {
         this.area = area;
         this.pontuacao = pontuacao;
     }
+    
+    public Professor() {
+    	this("","","",0.0);
+    }
 
     public String getCPF() {
         return CPF;

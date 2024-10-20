@@ -1,22 +1,26 @@
 package br.edu.fateczl.ed.Models;
 
 public class Inscricao {
-    private String CPF;
+    private String cpf;
     private int codigoDisciplina;
     private int codigoProcesso;
 
     public Inscricao(String cpf, int codigoDisciplina, int codigoProcesso) {
-        this.CPF = cpf;
+        this.cpf = cpf;
         this.codigoDisciplina = codigoDisciplina;
         this.codigoProcesso = codigoProcesso;
     }
+    
+    public Inscricao() {
+    	this("",0,0);
+    }
 
     public String getCPF() {
-        return CPF;
+        return cpf;
     }
 
     public void setCPF(String cpf) {
-        this.CPF = cpf;
+        this.cpf = cpf;
     }
 
     public int getCodigoDisciplina() {
@@ -37,6 +41,6 @@ public class Inscricao {
 
     @Override
     public String toString() {
-        return "Inscricao{" + "CPF=" + CPF + ", codigoDisciplina=" + codigoDisciplina + ", codigoProcesso=" + codigoProcesso + '}';
+        return "Inscricao{" + "CPF=" + cpf + ", codigoDisciplina=" + codigoDisciplina + ", codigoProcesso=" + codigoProcesso + '}';
     }
 }
