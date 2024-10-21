@@ -1,10 +1,11 @@
 package br.edu.fateczl.ed.Controller;
 
+import br.edu.fateczl.ed.Interface.IProfessorController;
 import br.edu.fateczl.ed.Models.Professor;
 import model.Lista;
 
 
-public class ProfessorController {
+public class ProfessorController implements IProfessorController {
 
 	public ProfessorController() {
 		super();
