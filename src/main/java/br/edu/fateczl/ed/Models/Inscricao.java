@@ -37,6 +37,6 @@ public class Inscricao {
 
     @Override
     public String toString() {
-        return "Inscricao{" + "CPF=" + CPF + ", codigoDisciplina=" + codigoDisciplina + ", codigoProcesso=" + codigoProcesso + '}';
+        return CPF+";"+codigoDisciplina+";"+codigoProcesso;
     }
 }

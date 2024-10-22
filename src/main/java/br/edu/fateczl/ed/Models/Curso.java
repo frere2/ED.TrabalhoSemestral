@@ -37,6 +37,6 @@ public class Curso {
 
     @Override
     public String toString() {
-        return "Curso{" + "codigo=" + codigo + ", nome=" + nome + ", area=" + area + '}';
+        return codigo+";"+nome+";"+area;
     }
 }
