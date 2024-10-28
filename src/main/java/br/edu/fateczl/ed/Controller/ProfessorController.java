@@ -11,6 +11,8 @@ public class ProfessorController implements IProfessorController {
 		super();
 	}
 
+	Lista<Professor> listaProfessores = new Lista<>();
+	
 	public void insereProfessor(Professor professor, Lista<Professor> listProf) {
 		listProf.addLast(professor);
 	}

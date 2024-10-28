@@ -9,6 +9,8 @@ public class CursosController {
 		super();
 	}
 
+	Lista<Curso> listaCursos = new Lista<>();
+	
 	public void insereCursos(Curso curso, Lista<Curso> listCurso) {
 		listCurso.addLast(curso);
 	}

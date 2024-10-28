@@ -8,6 +8,8 @@ public class DisciplinasController {
 	public DisciplinasController() {
 		super();
 	}
+	
+	Lista<Disciplina> listaDisciplinas = new Lista<>();
 
 	public void insereDisciplina(Disciplina disciplina, Lista<Disciplina> listDisc) {
 		listDisc.addLast(disciplina);
