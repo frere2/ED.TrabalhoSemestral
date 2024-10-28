@@ -9,6 +9,8 @@ public class InscricoesController {
 		super();
 	}
 	
+	Lista<Inscricao> listaInscricoes = new Lista<>();
+	
 	public void insereInscricao(Inscricao inscricao, Lista<Inscricao> listInsc) {
 		listInsc.addLast(inscricao);
 	}
