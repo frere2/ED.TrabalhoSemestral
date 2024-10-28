@@ -8,6 +8,8 @@ public class Disciplina {
     private String horasDiarias;
     private int codigoCurso;
 
+    public Disciplina() {}
+
     public Disciplina(int codigo, String nome, int diaSemana, String horario, String horasDiarias, int codigoCurso) {
         this.codigo = codigo;
         this.nome = nome;
