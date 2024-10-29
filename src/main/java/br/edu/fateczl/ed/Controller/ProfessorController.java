@@ -1,7 +1,7 @@
-package br.edu.fateczl.edu.Controller;
+package br.edu.fateczl.ed.Controller;
 
-import br.edu.fateczl.edu.Interface.IProfessorController;
-import br.edu.fateczl.edu.Models.Professor;
+import br.edu.fateczl.ed.Interface.IProfessorController;
+import br.edu.fateczl.ed.Models.Professor;
 import model.Lista;
 
 

@@ -1,4 +1,4 @@
-package br.edu.fateczl.edu.Models;
+package br.edu.fateczl.ed.Models;
 
 public class Inscricao {
     private String CPF;
