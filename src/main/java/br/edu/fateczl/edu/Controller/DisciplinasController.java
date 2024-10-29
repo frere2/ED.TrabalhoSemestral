@@ -1,6 +1,6 @@
-package br.edu.fateczl.ed.Controller;
+package br.edu.fateczl.edu.Controller;
 
-import br.edu.fateczl.ed.Models.Disciplina;
+import br.edu.fateczl.edu.Models.Disciplina;
 import model.Lista;
 
 public class DisciplinasController {

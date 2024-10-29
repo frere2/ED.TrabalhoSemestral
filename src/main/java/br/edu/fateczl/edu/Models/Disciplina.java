@@ -1,4 +1,4 @@
-package br.edu.fateczl.ed.Models;
+package br.edu.fateczl.edu.Models;
 
 public class Disciplina {
     private int codigo;

@@ -1,4 +1,4 @@
-package br.edu.fateczl.ed.view;
+package br.edu.fateczl.edu.view;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package br.edu.fateczl.ed.Infrastructure;
+package br.edu.fateczl.edu.Infrastructure;
 
 import model.Lista;
 

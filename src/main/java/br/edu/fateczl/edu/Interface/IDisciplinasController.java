@@ -1,4 +1,4 @@
-package br.edu.fateczl.ed.Interface;
+package br.edu.fateczl.edu.Interface;
 
 public interface IDisciplinasController {
 }

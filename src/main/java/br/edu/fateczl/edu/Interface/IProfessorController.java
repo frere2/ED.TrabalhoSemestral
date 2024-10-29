@@ -1,6 +1,6 @@
-package br.edu.fateczl.ed.Interface;
+package br.edu.fateczl.edu.Interface;
 
-import br.edu.fateczl.ed.Models.Professor;
+import br.edu.fateczl.edu.Models.Professor;
 import model.Lista;
 
 public interface IProfessorController {
