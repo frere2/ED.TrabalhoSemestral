@@ -1,5 +1,7 @@
 package br.edu.fateczl.ed.view;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 import javax.swing.*;
 
 public class Menu {
@@ -10,6 +12,7 @@ public class Menu {
     private JButton INSCRIÇÕESButton;
 
     public static void main(String[] args) {
+        FlatDarculaLaf.setup();
         JFrame frame = new JFrame("Painel - Menu");
 
         Menu menu = new Menu();
