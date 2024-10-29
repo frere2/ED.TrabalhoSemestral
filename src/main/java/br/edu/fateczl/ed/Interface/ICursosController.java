@@ -4,6 +4,8 @@ import br.edu.fateczl.ed.Models.Curso;
 import model.Lista;
 
 public interface ICursosController {
-    void insereCursos(Curso curso, Lista<Curso> listCurso);
-    void removeProfessor(Lista<Curso> listCurso, int posicao);
+    void insereCurso(Curso curso);
+    void removeCurso(int posicao);
+    void consultaCursos();
+    void atualizaArquivoCurso();
 }

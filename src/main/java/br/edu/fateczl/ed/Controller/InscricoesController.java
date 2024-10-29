@@ -1,40 +1,41 @@
 package br.edu.fateczl.ed.Controller;
 
+import br.edu.fateczl.ed.Interface.IInscricoesController;
 import br.edu.fateczl.ed.Models.Inscricao;
 import model.Lista;
 
-public class InscricoesController {
+public class InscricoesController implements IInscricoesController {
 
+	Lista<Inscricao> listaInscricoes = new Lista<>();
+	
 	public InscricoesController() {
 		super();
 	}
 	
-	Lista<Inscricao> listaInscricoes = new Lista<>();
-	
-	public void insereInscricao(Inscricao inscricao, Lista<Inscricao> listInsc) {
-		listInsc.addLast(inscricao);
+	public void insereInscricao(Inscricao inscricao) {
+		listaInscricoes.addLast(inscricao);
 	}
 	
-	public void removeProfessor(Lista<Inscricao> listInsc, int posicao) {
+	public void removeInscricao(int posicao) {
 		try {
-			listInsc.remove(posicao);
+			listaInscricoes.remove(posicao);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
 	
-	public void consultaProfessor(Lista<Inscricao> listInsc) {
-		int tamanho = listInsc.size();
+	public void consultaInscricoes() {
+		int tamanho = listaInscricoes.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println(listInsc.get(i).toString());
+				System.out.println((i) + " - " + listaInscricoes.get(i).toString());
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
 		}
 	}
 	
-	public void atualizaArquivoProf(Lista<Inscricao> listProf) {
+	public void atualizaArquivoInsc() {
 		
 	}
 

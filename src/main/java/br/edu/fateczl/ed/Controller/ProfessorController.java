@@ -4,39 +4,38 @@ import br.edu.fateczl.ed.Interface.IProfessorController;
 import br.edu.fateczl.ed.Models.Professor;
 import model.Lista;
 
-
 public class ProfessorController implements IProfessorController {
 
+	Lista<Professor> listaProfessores = new Lista<>();
+	
 	public ProfessorController() {
 		super();
 	}
 
-	Lista<Professor> listaProfessores = new Lista<>();
-	
-	public void insereProfessor(Professor professor, Lista<Professor> listProf) {
-		listProf.addLast(professor);
+	public void insereProfessor(Professor professor) {
+		listaProfessores.addLast(professor);
 	}
 	
-	public void removeProfessor(Lista<Professor> listProf, int posicao) {
+	public void removeProfessor(int posicao) {
 		try {
-			listProf.remove(posicao);
+			listaProfessores.remove(posicao);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
 	
-	public void consultaProfessor(Lista<Professor> listProf) {
-		int tamanho = listProf.size();
+	public void consultaProfessores() {
+		int tamanho = listaProfessores.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println(listProf.get(i).toString());
+				System.out.println((i) + " - " + listaProfessores.get(i).toString());
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
 		}
 	}
 	
-	public void atualizaArquivoProf(Lista<Professor> listProf) {
+	public void atualizaArquivoProf() {
 		
 	}
 	
