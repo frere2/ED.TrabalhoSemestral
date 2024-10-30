@@ -5,6 +5,8 @@ public class Inscricao {
     private int codigoDisciplina;
     private int codigoProcesso;
 
+    public Inscricao() {}
+
     public Inscricao(String cpf, int codigoDisciplina, int codigoProcesso) {
         this.CPF = cpf;
         this.codigoDisciplina = codigoDisciplina;
