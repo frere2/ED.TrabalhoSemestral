@@ -15,15 +15,7 @@ public class InscricoesController implements IEntidadesController<Inscricao> {
 	@Override
 	public void insere(Inscricao inscricao) {
 		listaInscricoes.addLast(inscricao);
-	}
-	
-	String cpf;
-	int cod;
-	int codp;
-	
-	Inscricao blabla = new Inscricao(cpf, cod, codp);
-	
-	
+	}	
 	
 	@Override
 	public void remove(int posicao) {
