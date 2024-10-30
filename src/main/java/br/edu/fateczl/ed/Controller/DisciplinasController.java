@@ -1,30 +1,33 @@
 package br.edu.fateczl.ed.Controller;
 
-import br.edu.fateczl.ed.Interface.IDisciplinasController;
+import br.edu.fateczl.ed.Interface.IEntidadesController;
 import br.edu.fateczl.ed.Models.Disciplina;
 import model.Lista;
 
-public class DisciplinasController implements IDisciplinasController{
+public class DisciplinasController implements IEntidadesController<Disciplina>{
 	
 	Lista<Disciplina> listaDisciplinas = new Lista<>();
 
-	public DisciplinasController() {
-		super();
+	public DisciplinasController(Lista<Disciplina> listaDisciplinas) {
+		this.listaDisciplinas = listaDisciplinas;
 	}
 
-	public void insereDisciplina(Disciplina disciplina) {
-		listaDisciplinas.addLast(disciplina);
+	@Override
+	public void insere(Disciplina disciplina) {
+		listaDisciplinas.addLast(disciplina);		
 	}
-	
-	public void removeDisciplina(int posicao) {
+
+	@Override
+	public void remove(int posicao) {
 		try {
 			listaDisciplinas.remove(posicao);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
-	
-	public void consultaDisciplinas() {
+
+	@Override
+	public void consulta() {
 		int tamanho = listaDisciplinas.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
@@ -35,8 +38,10 @@ public class DisciplinasController implements IDisciplinasController{
 		}
 	}
 	
-	public void atualizaArquivoDisc() {
+
+	@Override
+	public void atualizaArquivo(String caminho) {
+		// TODO Auto-generated method stub
 		
 	}
-	
 }

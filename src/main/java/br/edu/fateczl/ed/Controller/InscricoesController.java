@@ -1,22 +1,32 @@
 package br.edu.fateczl.ed.Controller;
 
-import br.edu.fateczl.ed.Interface.IInscricoesController;
+import br.edu.fateczl.ed.Interface.IEntidadesController;
 import br.edu.fateczl.ed.Models.Inscricao;
 import model.Lista;
 
-public class InscricoesController implements IInscricoesController {
+public class InscricoesController implements IEntidadesController<Inscricao> {
 
 	Lista<Inscricao> listaInscricoes = new Lista<>();
 	
-	public InscricoesController() {
-		super();
+	public InscricoesController(Lista<Inscricao> listaInscricoes) {
+		this.listaInscricoes = listaInscricoes;
 	}
 	
-	public void insereInscricao(Inscricao inscricao) {
+	@Override
+	public void insere(Inscricao inscricao) {
 		listaInscricoes.addLast(inscricao);
 	}
 	
-	public void removeInscricao(int posicao) {
+	String cpf;
+	int cod;
+	int codp;
+	
+	Inscricao blabla = new Inscricao(cpf, cod, codp);
+	
+	
+	
+	@Override
+	public void remove(int posicao) {
 		try {
 			listaInscricoes.remove(posicao);
 		} catch (Exception e) {
@@ -24,7 +34,8 @@ public class InscricoesController implements IInscricoesController {
 		}
 	}
 	
-	public void consultaInscricoes() {
+	@Override
+	public void consulta() {
 		int tamanho = listaInscricoes.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
@@ -35,7 +46,8 @@ public class InscricoesController implements IInscricoesController {
 		}
 	}
 	
-	public void atualizaArquivoInsc() {
+	@Override
+	public void atualizaArquivo(String caminho) {
 		
 	}
 

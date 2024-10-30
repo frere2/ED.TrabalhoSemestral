@@ -1,22 +1,24 @@
 package br.edu.fateczl.ed.Controller;
 
-import br.edu.fateczl.ed.Interface.IProfessorController;
+import br.edu.fateczl.ed.Interface.IEntidadesController;
 import br.edu.fateczl.ed.Models.Professor;
 import model.Lista;
 
-public class ProfessorController implements IProfessorController {
+public class ProfessorController implements IEntidadesController<Professor> {
 
 	Lista<Professor> listaProfessores = new Lista<>();
 	
-	public ProfessorController() {
-		super();
+	public ProfessorController(Lista<Professor> listaProfessores) {
+		this.listaProfessores = listaProfessores;
 	}
 
-	public void insereProfessor(Professor professor) {
+	@Override
+	public void insere(Professor professor) {
 		listaProfessores.addLast(professor);
 	}
 	
-	public void removeProfessor(int posicao) {
+	@Override
+	public void remove(int posicao) {
 		try {
 			listaProfessores.remove(posicao);
 		} catch (Exception e) {
@@ -24,7 +26,8 @@ public class ProfessorController implements IProfessorController {
 		}
 	}
 	
-	public void consultaProfessores() {
+	@Override
+	public void consulta() {
 		int tamanho = listaProfessores.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
@@ -35,7 +38,8 @@ public class ProfessorController implements IProfessorController {
 		}
 	}
 	
-	public void atualizaArquivoProf() {
+	@Override
+	public void atualizaArquivo(String caminho) {
 		
 	}
 	
