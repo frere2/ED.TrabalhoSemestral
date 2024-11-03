@@ -17,13 +17,6 @@ public class HashController {
 		//hashTable[4] = new Lista<>();
 	}
 	
-	public HashController(CursosController cursoCont, DisciplinasController discCont, InscricoesController inscCont, ProfessorController profCont) {
-		this.cursoCont = cursoCont;
-		this.discCont = discCont;
-		this.inscCont = inscCont;
-		this.profCont = profCont;
-	}
-	
 	@SuppressWarnings("unchecked")
 	CursosController cursoCont = new CursosController((Lista<Curso>) hashTable[0]);
 	@SuppressWarnings("unchecked")
@@ -32,6 +25,13 @@ public class HashController {
 	InscricoesController inscCont = new InscricoesController((Lista<Inscricao>) hashTable[2]);
 	@SuppressWarnings("unchecked")
 	ProfessorController profCont = new ProfessorController((Lista<Professor>) hashTable[3]);
+	
+	public HashController(CursosController cursoCont, DisciplinasController discCont, InscricoesController inscCont, ProfessorController profCont) {
+		this.cursoCont = cursoCont;
+		this.discCont = discCont;
+		this.inscCont = inscCont;
+		this.profCont = profCont;
+	}
 	
 	private int hashFunction(int key) {
 		return (key % size);
