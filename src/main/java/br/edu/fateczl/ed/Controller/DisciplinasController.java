@@ -1,10 +1,16 @@
 package br.edu.fateczl.ed.Controller;
 
+import java.io.File;
+import java.io.FileWriter;
+import br.edu.fateczl.ed.Infrastructure.CSVReader;
+
 import br.edu.fateczl.ed.Interface.IEntidadesController;
 import br.edu.fateczl.ed.Models.Disciplina;
 import model.Lista;
 
 public class DisciplinasController implements IEntidadesController<Disciplina>{
+	
+	CSVReader<Disciplina> readerCont = new CSVReader<>(Disciplina.class);
 	
 	Lista<Disciplina> listaDisciplinas = new Lista<>();
 
@@ -38,10 +44,34 @@ public class DisciplinasController implements IEntidadesController<Disciplina>{
 		}
 	}
 	
-
 	@Override
 	public void atualizaArquivo(String caminho) {
-		// TODO Auto-generated method stub
-		
+		//Caminho de teste de arquivo: "C:" + File.separator + "TEMP" + File.separator + "disciplinas.csv"
+		//path	/ED.TrabalhoSemestral/src/main/java/br/edu/fateczl/ed/Repository/disciplinas.csv
+		try {
+			File dir = new File(caminho);
+			if (dir.exists() && dir.isDirectory()) {
+				boolean existe = false;
+				File arquivo = new File (caminho, "disciplinas.csv"); //new File (caminho, nome);
+				if (arquivo.exists()) {existe = true;}
+				FileWriter writer = new FileWriter(arquivo, existe);
+				int tamanho = listaDisciplinas.size();
+				writer.write("codigo;nome;diaSemana;horario;horasDiarias;codigoCurso\n");
+				for (int i = 0; i < tamanho; i++) {
+					writer.write(listaDisciplinas.get(i).toString()+"\n");
+				}
+				writer.close();
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	public void populaLista() {
+		try {
+			listaDisciplinas = readerCont.mapFromCSV("C:\\TEMP\\disciplinas.csv", ";");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 }
