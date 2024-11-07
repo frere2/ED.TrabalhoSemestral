@@ -14,8 +14,10 @@ public class HashController {
 		hashTable[1] = new Lista<Disciplina>();
 		hashTable[2] = new Lista<Inscricao>();
 		hashTable[3] = new Lista<Professor>();
-		//hashTable[4] = new Lista<>();
+	
 	}
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	CursosController cursoCont = new CursosController((Lista<Curso>) hashTable[0]);
