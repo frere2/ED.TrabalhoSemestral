@@ -5,8 +5,6 @@ public class Inscricao {
     private int codigoDisciplina;
     private int codigoProcesso;
 
-    public Inscricao() {}
-
     public Inscricao(String cpf, int codigoDisciplina, int codigoProcesso) {
         this.cpf = cpf;
         this.codigoDisciplina = codigoDisciplina;
@@ -43,6 +41,6 @@ public class Inscricao {
 
     @Override
     public String toString() {
-        return CPF+";"+codigoDisciplina+";"+codigoProcesso;
+        return cpf+";"+codigoDisciplina+";"+codigoProcesso;
     }
 }

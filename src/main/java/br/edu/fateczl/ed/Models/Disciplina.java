@@ -1,25 +1,16 @@
 package br.edu.fateczl.ed.Models;
 
+import br.edu.fateczl.ed.Enums.EDiaSemana;
+
 public class Disciplina {
     private int codigo;
     private String nome;
-    private int diaSemana;
     private String horario;
     private String horasDiarias;
     private int codigoCurso;
-    private enum diaSemanaa{ //O Nome está "diaSemanaa" pra não conflitar com o código já escrito.
-    	Domingo,
-    	Segunda,
-    	Terça,
-    	Quarta,
-    	Quinta,
-    	Sexta,
-    	Sábado
-    }
+    private EDiaSemana diaSemana;
 
-    public Disciplina() {}
-
-    public Disciplina(int codigo, String nome, int diaSemana, String horario, String horasDiarias, int codigoCurso) {
+    public Disciplina(int codigo, String nome, EDiaSemana diaSemana, String horario, String horasDiarias, int codigoCurso) {
         this.codigo = codigo;
         this.nome = nome;
         this.diaSemana = diaSemana;
@@ -29,7 +20,7 @@ public class Disciplina {
     }
     
     public Disciplina() {
-    	this(0,"",0,"","",0);
+    	this(0,"",EDiaSemana.Segunda,"","",0);
     }
 
     public int getCodigo() {
@@ -48,11 +39,11 @@ public class Disciplina {
         this.nome = nome;
     }
 
-    public int getDiaSemana() {
+    public EDiaSemana getDiaSemana() {
         return diaSemana;
     }
 
-    public void setDiaSemana(int diaSemana) {
+    public void setDiaSemana(EDiaSemana diaSemana) {
         this.diaSemana = diaSemana;
     }
 
@@ -82,7 +73,7 @@ public class Disciplina {
 
     @Override
     public String toString() {
-        return codigo+";"+nome+";"+diaSemana+";"+horario+";"+horasDiarias+";"+codigoCurso;
+        return codigo+";"+nome+";"+diaSemana.toString()+";"+horario+";"+horasDiarias+";"+codigoCurso;
     }
     
 }

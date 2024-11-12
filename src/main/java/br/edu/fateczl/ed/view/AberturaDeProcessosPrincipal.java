@@ -1,24 +1,27 @@
 package br.edu.fateczl.ed.view;
 
-import java.io.IOException;
-
-import br.edu.fateczl.ed.Models.*;
-import br.edu.fateczl.ed.Controller.*;
-
-import model.Lista;
+import com.formdev.flatlaf.FlatDarculaLaf;
+import javax.swing.*;
 
 public class AberturaDeProcessosPrincipal {
 
-	public static void main(String[] args) throws IOException{
-		Lista<Disciplina> listaDisciplinas = new Lista<>();
-		Lista<Curso> listaCursos = new Lista<>();
-		Lista<Professor> listaProfessores = new Lista<>();
-		Lista<Inscricao> listaInscricoes = new Lista<>();
-		
-		DisciplinasController discCont = new DisciplinasController();
-		CursosController cursoCont = new CursosController();
-		ProfessorController profCont = new ProfessorController();
-		InscricoesController inscCont = new InscricoesController();
-	}
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(new FlatDarculaLaf());
+		} catch (Exception e) {
+			System.err.println("Ocorreu um erro ao tentar carregar o tema Darcula.");
+		}
 
+		SwingUtilities.invokeLater(() -> {
+			JFrame frame = new JFrame("Sistema de Contratação");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+			Menu menu = new Menu(frame);
+			frame.setContentPane(menu.getMainPanel());
+			frame.setSize(600, 400);
+			frame.setResizable(false);
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(true);
+		});
+	}
 }
