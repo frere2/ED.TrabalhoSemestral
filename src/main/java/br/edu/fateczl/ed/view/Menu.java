@@ -13,7 +13,6 @@ public class Menu {
         JFrame frame = new JFrame("Painel - Menu");
 
         Menu menu = new Menu();
-        ProfessorView professorView = new ProfessorView();
 
         frame.setContentPane(menu.Painel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,10 +21,5 @@ public class Menu {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        menu.PROFESSORESButton.addActionListener(e -> {
-            frame.setContentPane(professorView.Professor);
-            frame.revalidate();
-            frame.repaint();
-        });
     }
 }

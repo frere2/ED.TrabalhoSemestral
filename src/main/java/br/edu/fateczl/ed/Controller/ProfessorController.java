@@ -55,8 +55,8 @@ public class ProfessorController implements IEntidadesController<Professor> {
 				File arquivo = new File (caminho, "professores.csv"); //new File (caminho, nome);
 				if (arquivo.exists()) {existe = true;}
 				FileWriter writer = new FileWriter(arquivo, existe);
+				if (existe == false) {writer.write("CPF;nome;area;pontuacao\n");}
 				int tamanho = listaProfessores.size();
-				writer.write("CPF;nome;area;pontuacao\n");
 				for (int i = 0; i < tamanho; i++) {
 					writer.write(listaProfessores.get(i).toString()+"\n");
 				}

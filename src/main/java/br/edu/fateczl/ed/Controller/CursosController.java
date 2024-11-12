@@ -55,7 +55,7 @@ public class CursosController implements IEntidadesController<Curso> {
 				File arquivo = new File (caminho, "cursos.csv"); //new File (caminho, nome);
 				if (arquivo.exists()) {existe = true;}
 				FileWriter writer = new FileWriter(arquivo, existe);
-				if (!arquivo.exists()) {writer.write("codigo;nome;area\n");}
+				if (existe == false) {writer.write("codigo;nome;area\n");}
 				int tamanho = listaCursos.size();
 				for (int i = 0; i < tamanho; i++) {
 					writer.write(listaCursos.get(i).toString()+"\n");

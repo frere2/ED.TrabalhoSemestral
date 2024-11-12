@@ -55,8 +55,8 @@ public class InscricoesController implements IEntidadesController<Inscricao> {
 				File arquivo = new File (caminho, "inscricoes.csv"); //new File (caminho, nome);
 				if (arquivo.exists()) {existe = true;}
 				FileWriter writer = new FileWriter(arquivo, existe);
+				if (existe == false) {writer.write("CPF;codigoDisciplina;codigoProcesso\n");}
 				int tamanho = listaInscricoes.size();
-				writer.write("CPF;codigoDisciplina;codigoProcesso\n");
 				for (int i = 0; i < tamanho; i++) {
 					writer.write(listaInscricoes.get(i).toString()+"\n");
 				}

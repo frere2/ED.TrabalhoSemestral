@@ -55,8 +55,8 @@ public class DisciplinasController implements IEntidadesController<Disciplina>{
 				File arquivo = new File (caminho, "disciplinas.csv"); //new File (caminho, nome);
 				if (arquivo.exists()) {existe = true;}
 				FileWriter writer = new FileWriter(arquivo, existe);
+				if (existe == false) {writer.write("codigo;nome;diaSemana;horario;horasDiarias;codigoCurso\n");}
 				int tamanho = listaDisciplinas.size();
-				writer.write("codigo;nome;diaSemana;horario;horasDiarias;codigoCurso\n");
 				for (int i = 0; i < tamanho; i++) {
 					writer.write(listaDisciplinas.get(i).toString()+"\n");
 				}

@@ -18,7 +18,7 @@ public class ProfessorView {
     public ProfessorView() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        Professor.setLayout(new BorderLayout());
+        //Professor.setLayout(new BorderLayout());
         Professor.add(PainelProfessor, BorderLayout.CENTER);
         Professor.add(buttonPanel, BorderLayout.SOUTH);
     }

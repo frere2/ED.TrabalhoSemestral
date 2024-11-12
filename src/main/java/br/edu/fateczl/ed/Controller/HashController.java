@@ -17,8 +17,6 @@ public class HashController {
 	
 	}
 	
-	
-	
 	@SuppressWarnings("unchecked")
 	CursosController cursoCont = new CursosController((Lista<Curso>) hashTable[0]);
 	@SuppressWarnings("unchecked")

@@ -12,32 +12,6 @@ public class AberturaDeProcessosPrincipal {
 
 	public static void main(String[] args){
 		
-		//Chamar CursoController diretamente está funcionando. Chamar o CursoController pelo Hash não está funcionando.
-		//Há a possibilidade de mexer em tudo pelo HashController, pois temos que usar o Hashtable nesse trabalho
-		
-		
-		//CursosController
-		/*Lista<Curso> listacurso = new Lista<>();
-		CursosController cursCont = new CursosController(listacurso);
-		
-		Curso curso1 = new Curso(001, "batata", "legumes");
-		Curso curso2 = new Curso(002, "banana", "frutas");
-		Curso curso3 = new Curso(003, "alface", "verduras");
-		Curso curso4 = new Curso(004, "feijão", "grãos");
-		Curso curso5 = new Curso(005, "beringela", "legumes");
-		
-		cursCont.populaLista();
-		
-		cursCont.insere(curso5);
-		cursCont.insere(curso1);
-		cursCont.insere(curso2);
-		cursCont.insere(curso3);
-		cursCont.insere(curso4);
-		
-		cursCont.consulta();
-		
-		cursCont.atualizaArquivo("C:\\TEMP\\");*/
-		
 		//HashController
 		
 		Lista<Curso> listaCursos = new Lista<>();
