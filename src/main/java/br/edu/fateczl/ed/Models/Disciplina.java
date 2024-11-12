@@ -17,6 +17,8 @@ public class Disciplina {
     	Sábado
     }
 
+    public Disciplina() {}
+
     public Disciplina(int codigo, String nome, int diaSemana, String horario, String horasDiarias, int codigoCurso) {
         this.codigo = codigo;
         this.nome = nome;
@@ -80,6 +82,7 @@ public class Disciplina {
 
     @Override
     public String toString() {
-        return "Disciplina{" + "codigo=" + codigo + ", nome=" + nome + ", diaSemana=" + diaSemana + ", horario=" + horario + ", horasDiarias=" + horasDiarias + ", codigoCurso=" + codigoCurso + '}';
+        return codigo+";"+nome+";"+diaSemana+";"+horario+";"+horasDiarias+";"+codigoCurso;
     }
+    
 }

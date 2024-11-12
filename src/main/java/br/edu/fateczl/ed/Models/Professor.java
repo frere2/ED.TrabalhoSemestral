@@ -6,6 +6,8 @@ public class Professor {
     private String area;
     private Double pontuacao;
 
+    public Professor() {}
+
     public Professor(String cpf, String nome, String area, Double pontuacao) {
         this.CPF = cpf;
         this.nome = nome;
@@ -51,6 +53,6 @@ public class Professor {
 
     @Override
     public String toString() {
-        return "Professor{" + "CPF=" + CPF + ", nome=" + nome + ", area=" + area + ", pontuacao=" + pontuacao + '}';
+        return CPF+";"+nome+";"+area+";"+pontuacao;
     }
 }

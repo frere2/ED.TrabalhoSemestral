@@ -1,42 +1,45 @@
 package br.edu.fateczl.ed.Controller;
 
-import java.io.IOException;
-
+import br.edu.fateczl.ed.Interface.IEntidadesController;
 import br.edu.fateczl.ed.Models.Professor;
 import model.Lista;
 
-public class ProfessorController {
-	
-	String fileName = "professor.csv";
+public class ProfessorController implements IEntidadesController<Professor> {
 
-	public ProfessorController() {
-		super();
+	Lista<Professor> listaProfessores = new Lista<>();
+	
+	public ProfessorController(Lista<Professor> listaProfessores) {
+		this.listaProfessores = listaProfessores;
 	}
 
-	public void insereProfessor(Professor professor, Lista<Professor> listProf) {
-		listProf.addLast(professor);
+	@Override
+	public void insere(Professor professor) {
+		listaProfessores.addLast(professor);
 	}
 	
-	public void removeProfessor(Lista<Professor> listProf, int posicao) {
+	@Override
+	public void remove(int posicao) {
 		try {
-			listProf.remove(posicao);
+			listaProfessores.remove(posicao);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
 	
-	public void consultaProfessor(Lista<Professor> listProf) {
-		int tamanho = listProf.size();
+	@Override
+	public void consulta() {
+		int tamanho = listaProfessores.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println(listProf.get(i).toString());
+				System.out.println((i) + " - " + listaProfessores.get(i).toString());
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
 		}
 	}
 	
-	public void atualizaArquivoProf(Lista<Professor> listProf) throws IOException{
+	@Override
+	public void atualizaArquivo(String caminho) {
 		
 	}
 	

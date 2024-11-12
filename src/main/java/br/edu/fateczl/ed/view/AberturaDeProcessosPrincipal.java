@@ -10,7 +10,6 @@ import model.Lista;
 public class AberturaDeProcessosPrincipal {
 
 	public static void main(String[] args) throws IOException{
-		
 		Lista<Disciplina> listaDisciplinas = new Lista<>();
 		Lista<Curso> listaCursos = new Lista<>();
 		Lista<Professor> listaProfessores = new Lista<>();
@@ -20,7 +19,6 @@ public class AberturaDeProcessosPrincipal {
 		CursosController cursoCont = new CursosController();
 		ProfessorController profCont = new ProfessorController();
 		InscricoesController inscCont = new InscricoesController();
-
 	}
 
 }
