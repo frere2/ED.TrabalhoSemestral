@@ -5,7 +5,6 @@ import br.edu.fateczl.ed.Models.Inscricao;
 import model.Lista;
 
 public class InscricoesController implements IEntidadesController<Inscricao> {
-
 	Lista<Inscricao> listaInscricoes = new Lista<>();
 	
 	public InscricoesController(Lista<Inscricao> listaInscricoes) {

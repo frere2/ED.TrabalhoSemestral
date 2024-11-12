@@ -1,5 +1,7 @@
 package br.edu.fateczl.ed.Controller;
 
+import java.io.IOException;
+
 import br.edu.fateczl.ed.Interface.IEntidadesController;
 import br.edu.fateczl.ed.Models.Disciplina;
 import model.Lista;
@@ -37,7 +39,7 @@ public class DisciplinasController implements IEntidadesController<Disciplina>{
 			}
 		}
 	}
-	
+
 
 	@Override
 	public void atualizaArquivo(String caminho) {

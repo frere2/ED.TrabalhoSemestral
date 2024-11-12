@@ -8,7 +8,6 @@ import br.edu.fateczl.ed.Models.Curso;
 import model.Lista;
 
 public class CursosController implements IEntidadesController<Curso> {
-
 	Lista<Curso> listaCursos = new Lista<>();
 	
 	public CursosController(Lista<Curso> listaCursos) {
@@ -106,7 +105,5 @@ public class CursosController implements IEntidadesController<Curso> {
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-	}*/
-
-	
+	}*/	
 }

@@ -12,6 +12,10 @@ public class Curso {
         this.nome = nome;
         this.area = area;
     }
+    
+    public Curso() {
+    	this(0,"","");
+    }
 
     public int getCodigo() {
         return codigo;
