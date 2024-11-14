@@ -18,7 +18,7 @@ public class AberturaDeProcessosPrincipal {
 
 			Menu menu = new Menu(frame);
 			frame.setContentPane(menu.getMainPanel());
-			frame.setSize(600, 400);
+			frame.setSize(650, 400);
 			frame.setResizable(false);
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
