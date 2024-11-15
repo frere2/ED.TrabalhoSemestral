@@ -19,16 +19,40 @@ public class Menu {
     public Menu(JFrame frame) {
         this.frame = frame;
 
-        CURSOSButton.addActionListener(e -> openProfessores());
-        DISCIPLINASButton.addActionListener(e -> openProfessores());
+        CURSOSButton.addActionListener(e -> openCursos());
+        DISCIPLINASButton.addActionListener(e -> openDisciplinas());
         PROFESSORESButton.addActionListener(e -> openProfessores());
-        INSCRIÇÕESButton.addActionListener(e -> openProfessores());
+        INSCRIÇÕESButton.addActionListener(e -> openInscricoes());
     }
 
     private void openProfessores() {
         ProfessorView professores = new ProfessorView(frame);
         frame.setContentPane(professores.getMainPanel());
         frame.setTitle("Sistema de Contratação - Professor");
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private void openCursos() {
+        CursosView cursosView = new CursosView(frame);
+        frame.setContentPane(cursosView.getMainPanel());
+        frame.setTitle("Sistema de Contratação - Cursos");
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private void openDisciplinas() {
+        DisciplinasView disciplinasView = new DisciplinasView(frame);
+        frame.setContentPane(disciplinasView.getMainPanel());
+        frame.setTitle("Sistema de Contratação - Disciplinas");
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private void openInscricoes() {
+        InscricoesView inscricoesView = new InscricoesView(frame);
+        frame.setContentPane(inscricoesView.getMainPanel());
+        frame.setTitle("Sistema de Contratação - Inscrições");
         frame.revalidate();
         frame.repaint();
     }
@@ -53,10 +77,7 @@ public class Menu {
      */
     private void $$$setupUI$$$() {
         Painel = new JPanel();
-        Painel.setLayout(new GridLayoutManager(7, 2, new Insets(0, 0, 0, 0), -1, -1));
-        CURSOSButton = new JButton();
-        CURSOSButton.setText("CURSOS");
-        Painel.add(CURSOSButton, new GridConstraints(3, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        Painel.setLayout(new GridLayoutManager(6, 2, new Insets(0, 0, 0, 0), -1, -1));
         final Spacer spacer1 = new Spacer();
         Painel.add(spacer1, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final JLabel label1 = new JLabel();
@@ -65,17 +86,23 @@ public class Menu {
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         Painel.add(panel1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        DISCIPLINASButton = new JButton();
-        DISCIPLINASButton.setText("DISCIPLINAS");
-        Painel.add(DISCIPLINASButton, new GridConstraints(4, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer2 = new Spacer();
+        Painel.add(spacer2, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridLayoutManager(4, 1, new Insets(0, 30, 0, 30), -1, -1));
+        Painel.add(panel2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         PROFESSORESButton = new JButton();
         PROFESSORESButton.setText("PROFESSORES");
-        Painel.add(PROFESSORESButton, new GridConstraints(2, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel2.add(PROFESSORESButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        CURSOSButton = new JButton();
+        CURSOSButton.setText("CURSOS");
+        panel2.add(CURSOSButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        DISCIPLINASButton = new JButton();
+        DISCIPLINASButton.setText("DISCIPLINAS");
+        panel2.add(DISCIPLINASButton, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         INSCRIÇÕESButton = new JButton();
         INSCRIÇÕESButton.setText("INSCRIÇÕES");
-        Painel.add(INSCRIÇÕESButton, new GridConstraints(5, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final Spacer spacer2 = new Spacer();
-        Painel.add(spacer2, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel2.add(INSCRIÇÕESButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -84,4 +111,5 @@ public class Menu {
     public JComponent $$$getRootComponent$$$() {
         return Painel;
     }
+
 }
