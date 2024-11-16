@@ -3,7 +3,6 @@ package br.edu.fateczl.ed.Controller;
 import java.io.File;
 import java.io.FileWriter;
 import br.edu.fateczl.ed.Infrastructure.CSVReader;
-
 import br.edu.fateczl.ed.Interface.IEntidadesController;
 import br.edu.fateczl.ed.Models.Disciplina;
 import model.Lista;
@@ -43,7 +42,7 @@ public class DisciplinasController implements IEntidadesController<Disciplina>{
 			}
 		}
 	}
-	
+
 	@Override
 	public void atualizaArquivo(String caminho) {
 		//Caminho de teste de arquivo: "C:" + File.separator + "TEMP" + File.separator + "disciplinas.csv"

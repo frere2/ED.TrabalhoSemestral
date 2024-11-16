@@ -1,5 +1,7 @@
 package br.edu.fateczl.ed.view;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import javax.swing.*;
 import br.edu.fateczl.ed.Controller.CursosController;
 import br.edu.fateczl.ed.Controller.DisciplinasController;
 import br.edu.fateczl.ed.Controller.HashController;
@@ -29,48 +31,29 @@ public class AberturaDeProcessosPrincipal {
 		
 		//Curso: int codigo, String nome, String area
 		Curso curso1 = new Curso(001, "batata", "legumes");
-		Curso curso2 = new Curso(002, "banana", "frutas");
-		Curso curso3 = new Curso(003, "alface", "verduras");
-		Curso curso4 = new Curso(004, "feijão", "grãos");
-		Curso curso5 = new Curso(005, "beringela", "legumes");
 		//Disciplina: int codigo, String nome, int diaSemana, String horario, String horasDiarias, int codigoCurso
 		Disciplina disp1 = new Disciplina(1, "CozinhaGourmet", 2, "12h00", "3h", 1);
 		//Inscrição: String cpf, int codigoDisciplina, int codigoProcesso
 		Inscricao insc1 = new Inscricao("11111111111", 1, 1);
 		//Professor: String cpf, String nome, String area, Double pontuacao
 		Professor prof1 = new Professor("11111111111", "Fabiano", "legumes", 100.00 );
-		
-		hashCont.inserir(0, curso1);
-		hashCont.inserir(0, curso2);
-		hashCont.inserir(0, curso3);
-		hashCont.inserir(0, curso4);
-		hashCont.inserir(0, curso5);
-		hashCont.inserir(1, disp1);
-		hashCont.inserir(2, insc1);
-		hashCont.inserir(3, prof1);
-		
-//		hashCont.populaLista(0);
-		hashCont.consulta(0);
-		System.out.println();
-		hashCont.consulta(1);
-		System.out.println();
-		hashCont.consulta(2);
-		System.out.println();
-		hashCont.consulta(3);
-		hashCont.atualizaArquivo(0);
-		hashCont.atualizaArquivo(1);
-		hashCont.atualizaArquivo(2);
-		hashCont.atualizaArquivo(3);
-//		hashCont.remove(0, 4);
-//		hashCont.remove(0, 3);
-//		hashCont.remove(0, 2);
-//		hashCont.remove(0, 1);
-//		hashCont.remove(0, 0);
-//		System.out.println();
-//		hashCont.consulta(0);
-//		hashCont.inserir(0, curso5);
-//		System.out.println();
-//		hashCont.consulta(0);
-//		hashCont.atualizaArquivo(0);
+    
+		try {
+			UIManager.setLookAndFeel(new FlatDarculaLaf());
+		} catch (Exception e) {
+			System.err.println("Ocorreu um erro ao tentar carregar o tema Darcula.");
+		}
+
+		SwingUtilities.invokeLater(() -> {
+			JFrame frame = new JFrame("Sistema de Contratação");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+			Menu menu = new Menu(frame);
+			frame.setContentPane(menu.getMainPanel());
+			frame.setSize(650, 400);
+			frame.setResizable(false);
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(true);
+		});
 	}
 }

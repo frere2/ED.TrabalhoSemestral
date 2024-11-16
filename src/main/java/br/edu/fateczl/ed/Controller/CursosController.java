@@ -11,7 +11,7 @@ import model.Lista;
 public class CursosController implements IEntidadesController<Curso> {
 
 	CSVReader<Curso> readerCont = new CSVReader<>(Curso.class);
-	
+
 	Lista<Curso> listaCursos = new Lista<>();
 	
 	public CursosController(Lista<Curso> listaCursos) {

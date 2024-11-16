@@ -6,13 +6,15 @@ public class Professor {
     private String area;
     private Double pontuacao;
 
-    public Professor() {}
-
     public Professor(String cpf, String nome, String area, Double pontuacao) {
         this.CPF = cpf;
         this.nome = nome;
         this.area = area;
         this.pontuacao = pontuacao;
+    }
+    
+    public Professor() {
+    	this("","","",0.0);
     }
 
     public String getCPF() {
