@@ -134,7 +134,7 @@ public class ProfessorView {
             if (dialogResult == JOptionPane.NO_OPTION) {
                 return;
             }
-
+          
             // temporário, a exclusão vai ocorrer aqui
             JOptionPane.showMessageDialog(frame, "Professor excluído com sucesso.");
             ResetFields();

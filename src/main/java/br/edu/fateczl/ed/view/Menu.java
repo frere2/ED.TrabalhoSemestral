@@ -18,7 +18,6 @@ public class Menu {
 
     public Menu(JFrame frame) {
         this.frame = frame;
-
         CURSOSButton.addActionListener(e -> openCursos());
         DISCIPLINASButton.addActionListener(e -> openDisciplinas());
         PROFESSORESButton.addActionListener(e -> openProfessores());
