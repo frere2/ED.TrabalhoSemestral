@@ -128,7 +128,7 @@ public class InscricoesView {
         try {
             disciplinasController.populaLista();
 
-            DefaultComboBoxModel model = new DefaultComboBoxModel();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 
             int tamanho = listaDisciplina.size();
             for (int i = 0; i < tamanho; i++) {
@@ -137,8 +137,12 @@ public class InscricoesView {
 
             InputDisciplinaInscricao.setModel(model);
 
-            DefaultComboBoxModel model1 = model;
-            model1.insertElementAt("Todas", 0);
+            DefaultComboBoxModel<String> model1 = new DefaultComboBoxModel<>();
+            model1.addElement("Todas");
+            for (int i = 0; i < tamanho; i++) {
+                model1.addElement(listaDisciplina.get(i).getCodigo() + " - " + listaDisciplina.get(i).getNome());
+            }
+
             EscolhaDisciplinaLista.setModel(model1);
             EscolhaDisciplinaLista.setSelectedIndex(0);
 

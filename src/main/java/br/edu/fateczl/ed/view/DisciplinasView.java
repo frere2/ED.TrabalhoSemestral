@@ -94,7 +94,7 @@ public class DisciplinasView {
         try {
             cursosController.populaLista();
 
-            DefaultComboBoxModel model = new DefaultComboBoxModel();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 
             int tamanho = listaCurso.size();
             for (int i = 0; i < tamanho; i++) {

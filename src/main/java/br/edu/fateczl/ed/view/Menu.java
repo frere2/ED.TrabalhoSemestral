@@ -25,15 +25,11 @@ public class Menu {
     }
 
     private void openProfessores() {
-        try {
-            ProfessorView professores = new ProfessorView(frame);
-            frame.setContentPane(professores.getMainPanel());
-            frame.setTitle("Sistema de Contratação - Professor");
-            frame.revalidate();
-            frame.repaint();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ProfessorView professores = new ProfessorView(frame);
+        frame.setContentPane(professores.getMainPanel());
+        frame.setTitle("Sistema de Contratação - Professor");
+        frame.revalidate();
+        frame.repaint();
     }
 
     private void openCursos() {
