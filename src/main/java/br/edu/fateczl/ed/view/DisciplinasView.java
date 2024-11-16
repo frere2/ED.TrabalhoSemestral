@@ -149,6 +149,7 @@ public class DisciplinasView {
                 DiaSemanaDisciplina.setSelectedItem(disciplina.getDiaSemana());
                 HorarioDisciplina.setText(disciplina.getHorario());
                 CargaHorariaDisciplina.setText(disciplina.getHorasDiarias());
+                SelectedDisciplina = cod;
                 return;
             }
             JOptionPane.showMessageDialog(frame, "Disciplina não encontrada.");

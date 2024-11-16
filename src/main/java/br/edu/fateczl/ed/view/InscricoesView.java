@@ -136,8 +136,10 @@ public class InscricoesView {
             }
 
             InputDisciplinaInscricao.setModel(model);
-            model.insertElementAt("Todas", 0);
-            EscolhaDisciplinaLista.setModel(model);
+
+            DefaultComboBoxModel model1 = model;
+            model1.insertElementAt("Todas", 0);
+            EscolhaDisciplinaLista.setModel(model1);
             EscolhaDisciplinaLista.setSelectedIndex(0);
 
         } catch (Exception e) {
