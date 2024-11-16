@@ -6,8 +6,6 @@ public class Professor {
     private String area;
     private Double pontuacao;
 
-    public Professor() {}
-
     public Professor(String cpf, String nome, String area, Double pontuacao) {
         this.CPF = cpf;
         this.nome = nome;

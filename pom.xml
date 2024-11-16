@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>br.edu.fateczl.edu</groupId>
+    <groupId>br.edu.fateczl.ed</groupId>
     <artifactId>TrabalhoSemestralED</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -19,8 +19,29 @@
             <artifactId>flatlaf</artifactId>
             <version>3.5.2</version>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>com.intellij</groupId>
+            <artifactId>forms_rt</artifactId>
+            <version>7.0.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.edu.fateczl.lista</groupId>
+            <artifactId>br.edu.fateczl.lista</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/ListaGenerica.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>br.edu.fateczl.fila</groupId>
+            <artifactId>br.edu.fateczl.fila</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/FilaGeneric.jar</systemPath>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -30,7 +51,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>br.edu.fateczl.edu.view.Menu</mainClass>
+                            <mainClass>br.edu.fateczl.edu.view.AberturaDeProcessosPrincipal</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

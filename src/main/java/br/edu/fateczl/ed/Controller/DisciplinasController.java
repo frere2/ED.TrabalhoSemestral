@@ -1,49 +1,116 @@
 package br.edu.fateczl.ed.Controller;
 
-import java.io.IOException;
-
-import br.edu.fateczl.ed.Interface.IEntidadesController;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import br.edu.fateczl.ed.Infrastructure.CSVReader;
+import br.edu.fateczl.ed.Infrastructure.ConfigReader;
+import br.edu.fateczl.ed.Interface.IDisciplinasController;
 import br.edu.fateczl.ed.Models.Disciplina;
-import model.Lista;
+import br.edu.fateczl.ed.Utils.Utilities;
+import br.edu.fateczl.fila.Fila;
+import br.edu.fateczl.lista.Lista;
 
-public class DisciplinasController implements IEntidadesController<Disciplina>{
-	
-	Lista<Disciplina> listaDisciplinas = new Lista<>();
+public class DisciplinasController implements IDisciplinasController {
+
+	private CSVReader<Disciplina> readerCont = new CSVReader<>(Disciplina.class);
+	private Lista<Disciplina> listaDisciplinas;
+	private ConfigReader configReader = new ConfigReader();
+	private final String Caminho = configReader.getFullPath("disciplinas.csv");
 
 	public DisciplinasController(Lista<Disciplina> listaDisciplinas) {
 		this.listaDisciplinas = listaDisciplinas;
 	}
 
-	@Override
-	public void insere(Disciplina disciplina) {
-		listaDisciplinas.addLast(disciplina);		
+	public boolean insere(Disciplina disciplina) {
+		int tamanho = listaDisciplinas.size();
+		try {
+			for (int i = 0; i < tamanho; i++) {
+				if (listaDisciplinas.get(i).getCodigo().equals(disciplina.getCodigo()))
+					return false;
+				}
+			} catch (Exception e) {
+			System.err.println("Erro ao inserir disciplina");
+        }
+		listaDisciplinas.addLast(disciplina);
+		atualizaArquivo();
+		return true;
 	}
 
-	@Override
-	public void remove(int posicao) {
+	public void removePorCodigo(String codigo) {
+		int tamanho = listaDisciplinas.size();
 		try {
-			listaDisciplinas.remove(posicao);
+			for (int i = 0; i < tamanho; i++) {
+				Disciplina disciplina = listaDisciplinas.get(i);
+				if (disciplina.getCodigo().equals(codigo)) {
+					listaDisciplinas.remove(i);
+				}
+			}
+			atualizaArquivo();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
 
-	@Override
-	public void consulta() {
+	public void removePorCodigoCurso(int codigo) {
+		int tamanho = listaDisciplinas.size();
+		try {
+			for (int i = 0; i < tamanho; i++) {
+				Disciplina disciplina = listaDisciplinas.get(i);
+				if (disciplina.getCodigoCurso() == codigo) {
+					listaDisciplinas.remove(i);
+				}
+			}
+			atualizaArquivo();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}
+
+	public Disciplina consultaPorCodigo(String codigo) {
 		int tamanho = listaDisciplinas.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println((i) + " - " + listaDisciplinas.get(i).toString());
+				Disciplina disciplina = listaDisciplinas.get(i);
+				if (disciplina.getCodigo().equals(codigo)) {
+					return disciplina;
+				}
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
 		}
+		return null;
 	}
 
-
-	@Override
-	public void atualizaArquivo(String caminho) {
-		// TODO Auto-generated method stub
-		
+	public void atualizaArquivo() {
+		try {
+			File arquivo = new File (Caminho);
+			FileWriter writer = new FileWriter(arquivo);
+			writer.write(Utilities.GetHeadersByClass(Disciplina.class) + "\n");
+			int tamanho = listaDisciplinas.size();
+			for (int i = 0; i < tamanho; i++) {
+				writer.write(listaDisciplinas.get(i).toString()+"\n");
+			}
+			writer.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	public void populaLista() throws FileNotFoundException {
+		File dir = new File(Caminho);
+		if (dir.exists()) {
+			try {
+				if (!listaDisciplinas.isEmpty()) { listaDisciplinas.clean(); }
+				Fila<Disciplina> fila = readerCont.mapFromCSV(Caminho, ";");
+				while (!fila.isEmpty()) {
+					listaDisciplinas.addLast(fila.remove());
+				}
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		} else {
+			throw new FileNotFoundException("Arquivo Inexistente");
+		}
 	}
 }

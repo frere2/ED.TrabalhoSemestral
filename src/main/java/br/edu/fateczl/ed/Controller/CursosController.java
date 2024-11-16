@@ -1,103 +1,77 @@
 package br.edu.fateczl.ed.Controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
-
-import br.edu.fateczl.ed.Interface.IEntidadesController;
+import br.edu.fateczl.ed.Infrastructure.CSVReader;
+import br.edu.fateczl.ed.Infrastructure.ConfigReader;
+import br.edu.fateczl.ed.Interface.ICursosController;
 import br.edu.fateczl.ed.Models.Curso;
-import model.Lista;
+import br.edu.fateczl.ed.Utils.Utilities;
+import br.edu.fateczl.fila.Fila;
+import br.edu.fateczl.lista.Lista;
 
-public class CursosController implements IEntidadesController<Curso> {
-	Lista<Curso> listaCursos = new Lista<>();
-	
+public class CursosController implements ICursosController {
+	private  CSVReader<Curso> readerCont = new CSVReader<>(Curso.class);
+	private Lista<Curso> listaCursos;
+	private ConfigReader configReader = new ConfigReader();
+	private final String Caminho = configReader.getFullPath("cursos.csv");
+
 	public CursosController(Lista<Curso> listaCursos) {
 		this.listaCursos = listaCursos;
 	}
 
-	@Override
-	public void insere(Curso curso) {
-		listaCursos.addLast(curso);
-	}
-
-	@Override
-	public void remove(int posicao) {
-		try {
-			listaCursos.remove(posicao);
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-	}
-
-	@Override
-	public void consulta() {
+	public boolean insere(Curso curso) {
 		int tamanho = listaCursos.size();
-		for (int i = 0; i < tamanho; i++) {
-			try {
-				System.out.println((i) + " - " + listaCursos.get(i).toString());
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
-			}
-		}
-		
-	}
-
-	@Override
-	public void atualizaArquivo(String caminho) {
-		//Caminho de teste de arquivo: "C:" + File.separator + "TEMP" + File.separator + "cursos.csv"
-		//path	/ED.TrabalhoSemestral/src/main/java/br/edu/fateczl/ed/Repository/cursos.csv
 		try {
-			File dir = new File(caminho);
-			if (dir.exists() && dir.isDirectory()) {
-				boolean existe = false;
-				File arquivo = new File ("C:\\TEMP\\", "cursos.csv"); //new File (caminho, nome);
-				if (arquivo.exists()) {existe = true;}
-				FileWriter writer = new FileWriter(arquivo, existe);
-				int tamanho = listaCursos.size();
-				for (int i = 0; i < tamanho; i++) {
-					writer.write(listaCursos.get(i).toString()+"\n");
+			for (int i = 0; i < tamanho; i++) {
+				if (listaCursos.get(i).getCodigo() == curso.getCodigo())
+					return false;
 				}
-				writer.close();
-			}
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-	}
-	
-	/*
-	//Adiciona um Curso à lista
-	//Abrir uma nova classe Curso e inserir os dados dela antes de chamar esse método
-	public void insereCurso(Curso curso) {
+			} catch (Exception e) {
+				System.err.println("Erro ao inserir curso");
+        }
 		listaCursos.addLast(curso);
+		atualizaArquivo();
+		return true;
 	}
-	
-	//Remove um Curso e seus dados da Lista. É necessário inserir a posicão;
-	public void removeCurso(int posicao) {
+
+	public void removePorCodigo(int codigo) {
+		int tamanho = listaCursos.size();
 		try {
-			listaCursos.remove(posicao);
+			for (int i = 0; i < tamanho; i++) {
+				Curso curso = listaCursos.get(i);
+				if (curso.getCodigo() == codigo) {
+					listaCursos.remove(i);
+				}
+			}
+			atualizaArquivo();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
-	
-	//Escreve a lista de Cursos e seus dados.
-	public void consultaCursos() {
+
+	public Curso consultaPorCodigo(int codigo) {
 		int tamanho = listaCursos.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println((i) + " - " + listaCursos.get(i).toString());
+				Curso curso = listaCursos.get(i);
+				if (curso.getCodigo() == codigo) {
+					return curso;
+				}
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
 		}
+		return null;
 	}
-	
-	public void atualizaArquivoCurso() {
-		//path	/ED.TrabalhoSemestral/src/main/java/br/edu/fateczl/ed/Repository/cursos.csv
-		//Corrigir o caminho do arquivo. Lançar no computador dá certo, mas dentro do repositório não deu.
+
+	public void atualizaArquivo() {
 		try {
-			File sobreescreve = new File ("C:\\TEMP\\cursos.csv");
+			File arquivo = new File (Caminho);
+			FileWriter writer = new FileWriter(arquivo);
+			writer.write(Utilities.GetHeadersByClass(Curso.class) + "\n");
 			int tamanho = listaCursos.size();
-			FileWriter writer = new FileWriter(sobreescreve);
 			for (int i = 0; i < tamanho; i++) {
 				writer.write(listaCursos.get(i).toString()+"\n");
 			}
@@ -105,5 +79,22 @@ public class CursosController implements IEntidadesController<Curso> {
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-	}*/	
+	}
+	
+	public void populaLista() throws FileNotFoundException {
+		File dir = new File(Caminho);
+		if (dir.exists()) {
+			try {
+				if (!listaCursos.isEmpty()) { listaCursos.clean(); }
+				Fila<Curso> fila = readerCont.mapFromCSV(Caminho, ";");
+				while (!fila.isEmpty()) {
+					listaCursos.addLast(fila.remove());
+				}
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		} else {
+			throw new FileNotFoundException("Arquivo Inexistente");
+		}
+	}
 }
