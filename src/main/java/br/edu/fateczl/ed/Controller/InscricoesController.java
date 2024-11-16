@@ -51,6 +51,21 @@ public class InscricoesController implements IInscricoesController {
 		}
 	}
 
+	public void removePorDisciplina(String disciplina) {
+		try {
+			int tamanho = listaInscricoes.size();
+			for (int i = 0; i < tamanho; i++) {
+				Inscricao inscricao = listaInscricoes.get(i);
+				if (inscricao.getCodigoDisciplina().equals(disciplina)) {
+					listaInscricoes.remove(i);
+				}
+			}
+			atualizaArquivo();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}
+
 	public Inscricao consultaPorCPF(String cpf) {
 		int tamanho = listaInscricoes.size();
 		for (int i = 0; i < tamanho; i++) {

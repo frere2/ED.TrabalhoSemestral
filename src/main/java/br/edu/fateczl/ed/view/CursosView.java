@@ -2,8 +2,10 @@ package br.edu.fateczl.ed.view;
 
 import br.edu.fateczl.ed.Controller.CursosController;
 import br.edu.fateczl.ed.Controller.DisciplinasController;
+import br.edu.fateczl.ed.Controller.InscricoesController;
 import br.edu.fateczl.ed.Models.Curso;
 import br.edu.fateczl.ed.Models.Disciplina;
+import br.edu.fateczl.ed.Models.Inscricao;
 import br.edu.fateczl.ed.Models.Professor;
 import br.edu.fateczl.ed.Utils.Utilities;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -136,10 +138,21 @@ public class CursosView {
                 Lista<Disciplina> disciplinaLista = new Lista<>();
                 DisciplinasController disciplinasController = new DisciplinasController(disciplinaLista);
                 disciplinasController.populaLista();
-                disciplinasController.removePorCodigoCurso(SelectedCurso);
+                Lista<String> disciplinasRemovidas = disciplinasController.removePorCodigoCurso(SelectedCurso);
+
+                Lista<Inscricao> inscricaoLista = new Lista<>();
+                InscricoesController inscricoesController = new InscricoesController(inscricaoLista);
+                inscricoesController.populaLista();
+
+                int tamanho = disciplinasRemovidas.size();
+                for (int i = 0; i < tamanho; i++) {
+                    inscricoesController.removePorDisciplina(disciplinasRemovidas.get(i));
+                }
+
                 cursoController.removePorCodigo(SelectedCurso);
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
+                return;
             }
 
             JOptionPane.showMessageDialog(frame, "Curso excluído com sucesso.");

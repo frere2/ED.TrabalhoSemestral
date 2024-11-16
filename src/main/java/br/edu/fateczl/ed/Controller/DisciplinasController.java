@@ -52,12 +52,14 @@ public class DisciplinasController implements IDisciplinasController {
 		}
 	}
 
-	public void removePorCodigoCurso(int codigo) {
+	public Lista<String> removePorCodigoCurso(int codigo) {
 		int tamanho = listaDisciplinas.size();
+		Lista<String> disciplinasRemovidas = new Lista<>();
 		try {
 			for (int i = 0; i < tamanho; i++) {
 				Disciplina disciplina = listaDisciplinas.get(i);
 				if (disciplina.getCodigoCurso() == codigo) {
+					disciplinasRemovidas.addLast(disciplina.getCodigo());
 					listaDisciplinas.remove(i);
 				}
 			}
@@ -65,6 +67,8 @@ public class DisciplinasController implements IDisciplinasController {
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
+
+		return disciplinasRemovidas;
 	}
 
 	public Disciplina consultaPorCodigo(String codigo) {

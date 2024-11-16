@@ -2,9 +2,11 @@ package br.edu.fateczl.ed.view;
 
 import br.edu.fateczl.ed.Controller.CursosController;
 import br.edu.fateczl.ed.Controller.DisciplinasController;
+import br.edu.fateczl.ed.Controller.InscricoesController;
 import br.edu.fateczl.ed.Enums.EDiaSemana;
 import br.edu.fateczl.ed.Models.Curso;
 import br.edu.fateczl.ed.Models.Disciplina;
+import br.edu.fateczl.ed.Models.Inscricao;
 import br.edu.fateczl.ed.Utils.Utilities;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -164,7 +166,18 @@ public class DisciplinasView {
                 return;
             }
 
-            disciplinasController.removePorCodigo(SelectedDisciplina);
+            try {
+                disciplinasController.removePorCodigo(SelectedDisciplina);
+
+                Lista<Inscricao> inscricaoLista = new Lista<>();
+                InscricoesController inscricoesController = new InscricoesController(inscricaoLista);
+                inscricoesController.populaLista();
+                inscricoesController.removePorDisciplina(SelectedDisciplina);
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+                return;
+            }
+
             JOptionPane.showMessageDialog(frame, "Disciplina excluída com sucesso.");
             ResetFields();
         });
