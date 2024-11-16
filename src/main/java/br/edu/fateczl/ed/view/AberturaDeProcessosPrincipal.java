@@ -38,7 +38,7 @@ public class AberturaDeProcessosPrincipal {
 		//Inscrição: String cpf, int codigoDisciplina, int codigoProcesso
 		Inscricao insc1 = new Inscricao("11111111111", 1, 1);
 		//Professor: String cpf, String nome, String area, Double pontuacao
-		Professor prof1 = new Professor("11111111111", "Fabiano", "", 100.00 );
+		Professor prof1 = new Professor("11111111111", "Fabiano", "legumes", 100.00 );
 		
 		hashCont.inserir(0, curso1);
 		hashCont.inserir(0, curso2);

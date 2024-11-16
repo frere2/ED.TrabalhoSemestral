@@ -37,7 +37,7 @@ public class InscricoesController implements IEntidadesController<Inscricao> {
 		int tamanho = listaInscricoes.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println((i) + " - " + listaInscricoes.get(i).toString());
+				System.out.println("CPF: " +listaInscricoes.get(i).getCPF()+ " Código Disciplina: " +listaInscricoes.get(i).getCodigoDisciplina() + " Código Processo: " +listaInscricoes.get(i).getCodigoProcesso());
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
@@ -67,11 +67,17 @@ public class InscricoesController implements IEntidadesController<Inscricao> {
 		}
 	}
 
-	public void populaLista() {
-		try {
-			listaInscricoes = readerCont.mapFromCSV("C:\\TEMP\\inscricoes.csv", ";");
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
+	public void populaLista() throws Exception {
+		String caminho = "C:\\TEMP\\inscricoes.csv";
+		File dir = new File(caminho);
+		if (dir.exists()) {
+			try {
+				listaInscricoes = readerCont.mapFromCSV("C:\\TEMP\\inscricoes.csv", ";");
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		} else {
+			throw new Exception ("Arquivo Inexistente");
 		}
 	}
 }

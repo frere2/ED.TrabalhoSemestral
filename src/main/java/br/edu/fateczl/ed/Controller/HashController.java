@@ -78,7 +78,7 @@ public class HashController {
 		}
 	}
 	
-	public void populaLista(int key) {
+	public void populaLista(int key) throws Exception {
 		int hIndex = hashFunction(key);
 		if (hIndex == 0) {
 			cursoCont.populaLista();

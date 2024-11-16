@@ -37,7 +37,7 @@ public class DisciplinasController implements IEntidadesController<Disciplina>{
 		int tamanho = listaDisciplinas.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println((i) + " - " + listaDisciplinas.get(i).toString());
+				System.out.println("Código: " +listaDisciplinas.get(i).getCodigo()+ " Nome: " +listaDisciplinas.get(i).getNome()+ " Dia da Semana: " +listaDisciplinas.get(i).getDiaSemana()+ " Horário: " +listaDisciplinas.get(i).getHorario() + " Horas Diárias: " +listaDisciplinas.get(i).getHorasDiarias() + " Código do Curso: " +listaDisciplinas.get(i).getCodigoCurso());
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
@@ -67,11 +67,17 @@ public class DisciplinasController implements IEntidadesController<Disciplina>{
 		}
 	}
 	
-	public void populaLista() {
-		try {
-			listaDisciplinas = readerCont.mapFromCSV("C:\\TEMP\\disciplinas.csv", ";");
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
+	public void populaLista() throws Exception {
+		String caminho = "C:\\TEMP\\disciplinas.csv";
+		File dir = new File(caminho);
+		if (dir.exists()) {
+			try {
+				listaDisciplinas = readerCont.mapFromCSV("C:\\TEMP\\disciplinas.csv", ";");
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		} else {
+			throw new Exception ("Arquivo Inexistente");
 		}
 	}
 }

@@ -37,7 +37,7 @@ public class CursosController implements IEntidadesController<Curso> {
 		int tamanho = listaCursos.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println((i) + " - " + listaCursos.get(i).toString());
+				System.out.println("Código: " +listaCursos.get(i).getCodigo()+ " Curso: " +listaCursos.get(i).getNome()+ " Área: " +listaCursos.get(i).getArea());
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
@@ -67,11 +67,17 @@ public class CursosController implements IEntidadesController<Curso> {
 		}
 	}
 	
-	public void populaLista() {
-		try {
-			listaCursos = readerCont.mapFromCSV("C:\\TEMP\\cursos.csv", ";");
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
+	public void populaLista() throws Exception {
+		String caminho = "C:\\TEMP\\cursos.csv";
+		File dir = new File(caminho);
+		if (dir.exists()) {
+			try {
+				listaCursos = readerCont.mapFromCSV("C:\\TEMP\\cursos.csv", ";");
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		} else {
+			throw new Exception ("Arquivo Inexistente");
 		}
 	}
 }

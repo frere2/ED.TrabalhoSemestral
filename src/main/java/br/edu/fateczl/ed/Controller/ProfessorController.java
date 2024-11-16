@@ -37,7 +37,7 @@ public class ProfessorController implements IEntidadesController<Professor> {
 		int tamanho = listaProfessores.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println((i) + " - " + listaProfessores.get(i).toString());
+				System.out.println("CPF: " +listaProfessores.get(i).getCPF()+ " Nome: " +listaProfessores.get(i).getNome()+ " Área: " +listaProfessores.get(i).getArea()+ " Pontuação: " +listaProfessores.get(i).getPontuacao());
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
@@ -67,11 +67,17 @@ public class ProfessorController implements IEntidadesController<Professor> {
 		}
 	}
 	
-	public void populaLista() {
-		try {
-			listaProfessores = readerCont.mapFromCSV("C:\\TEMP\\professores.csv", ";");
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
+	public void populaLista() throws Exception {
+		String caminho = "C:\\\\TEMP\\\\professores.csv";
+		File dir = new File(caminho);
+		if (dir.exists()) {
+			try {
+				listaProfessores = readerCont.mapFromCSV(caminho, ";");
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		} else {
+			throw new Exception ("Arquivo Inexistente");
 		}
 	}
 }
