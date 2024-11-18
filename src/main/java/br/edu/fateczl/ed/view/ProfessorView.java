@@ -1,6 +1,8 @@
 package br.edu.fateczl.ed.view;
 
+import br.edu.fateczl.ed.Controller.InscricoesController;
 import br.edu.fateczl.ed.Controller.ProfessorController;
+import br.edu.fateczl.ed.Models.Inscricao;
 import br.edu.fateczl.ed.Models.Professor;
 import br.edu.fateczl.ed.Utils.Utilities;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -16,6 +18,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -140,6 +143,16 @@ public class ProfessorView {
             }
 
             professorController.removePorCPF(SelectedCPF);
+
+            try {
+                Lista<Inscricao> inscricaoLista = new Lista<>();
+                InscricoesController inscricoesController = new InscricoesController(inscricaoLista);
+                inscricoesController.populaLista();
+                inscricoesController.removePorCPF(SelectedCPF);
+            } catch (FileNotFoundException ex) {
+                System.err.println(ex.getMessage());
+            }
+
             JOptionPane.showMessageDialog(frame, "Professor excluído com sucesso.");
             ResetFields();
         });
