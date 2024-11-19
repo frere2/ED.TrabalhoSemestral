@@ -1,5 +1,10 @@
 package br.edu.fateczl.ed.Controller;
 
+import br.edu.fateczl.lista.Lista;
+import br.edu.fateczl.ed.Models.*;
+
+public class HashController {
+	/*
 import model.Lista;
 import br.edu.fateczl.ed.Models.*;
 
@@ -103,5 +108,5 @@ public class HashController {
 		} else {
 			profCont.atualizaArquivo(caminho);
 		}
-	}
+	}*/
 }

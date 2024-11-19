@@ -1,83 +1,102 @@
 package br.edu.fateczl.ed.Controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 import br.edu.fateczl.ed.Infrastructure.CSVReader;
-import br.edu.fateczl.ed.Interface.IEntidadesController;
+import br.edu.fateczl.ed.Infrastructure.ConfigReader;
+import br.edu.fateczl.ed.Interface.IProfessorController;
 import br.edu.fateczl.ed.Models.Professor;
-import model.Lista;
+import br.edu.fateczl.ed.Utils.Utilities;
+import br.edu.fateczl.fila.Fila;
+import br.edu.fateczl.lista.Lista;
 
-public class ProfessorController implements IEntidadesController<Professor> {
-
-	CSVReader<Professor> readerCont = new CSVReader<>(Professor.class);
-	
-	Lista<Professor> listaProfessores = new Lista<>();
+public class ProfessorController implements IProfessorController {
+	private CSVReader<Professor> readerCont = new CSVReader<>(Professor.class);
+	private Lista<Professor> listaProfessores;
+	private ConfigReader configReader = new ConfigReader();
+	private final String Caminho = configReader.getFullPath("professor.csv");
 	
 	public ProfessorController(Lista<Professor> listaProfessores) {
 		this.listaProfessores = listaProfessores;
 	}
 
-	@Override
-	public void insere(Professor professor) {
+	public boolean insere(Professor professor) {
+		int tamanho = listaProfessores.size();
+		try {
+			for (int i = 0; i < tamanho; i++) {
+				if (listaProfessores.get(i).getCPF().equals(professor.getCPF())) {
+					return false;
+				}
+			}
+		} catch (Exception e) {
+			System.err.println("Erro ao inserir professor");
+		}
 		listaProfessores.addLast(professor);
+		atualizaArquivo();
+		return true;
 	}
 	
-	@Override
-	public void remove(int posicao) {
+	public void removePorCPF(String cpf) {
 		try {
-			listaProfessores.remove(posicao);
+			int tamanho = listaProfessores.size();
+			for (int i = 0; i < tamanho; i++) {
+				Professor professor = listaProfessores.get(i);
+				if (professor.getCPF().equals(cpf)) {
+					listaProfessores.remove(i);
+				}
+			}
+			atualizaArquivo();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
 	
-	@Override
-	public void consulta() {
+	public Professor consultaPorCPF(String cpf) {
 		int tamanho = listaProfessores.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println("CPF: " +listaProfessores.get(i).getCPF()+ " Nome: " +listaProfessores.get(i).getNome()+ " Área: " +listaProfessores.get(i).getArea()+ " Pontuação: " +listaProfessores.get(i).getPontuacao());
+				Professor professor = listaProfessores.get(i);
+				if (professor.getCPF().equals(cpf)) {
+					return professor;
+				}
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
 		}
+		return null;
 	}
 	
-	@Override
-	public void atualizaArquivo(String caminho) {
-		//Caminho de teste de arquivo: "C:" + File.separator + "TEMP" + File.separator + "disciplinas.csv"
-		//path	/ED.TrabalhoSemestral/src/main/java/br/edu/fateczl/ed/Repository/disciplinas.csv
+	public void atualizaArquivo() {
 		try {
-			File dir = new File(caminho);
-			if (dir.exists() && dir.isDirectory()) {
-				boolean existe = false;
-				File arquivo = new File (caminho, "professores.csv"); //new File (caminho, nome);
-				if (arquivo.exists()) {existe = true;}
-				FileWriter writer = new FileWriter(arquivo, existe);
-				if (existe == false) {writer.write("CPF;nome;area;pontuacao\n");}
-				int tamanho = listaProfessores.size();
-				for (int i = 0; i < tamanho; i++) {
-					writer.write(listaProfessores.get(i).toString()+"\n");
-				}
-				writer.close();
+			File arquivo = new File (Caminho);
+			FileWriter writer = new FileWriter(arquivo);
+			writer.write(Utilities.GetHeadersByClass(Professor.class) + "\n");
+			int tamanho = listaProfessores.size();
+			for (int i = 0; i < tamanho; i++) {
+				writer.write(listaProfessores.get(i).toString()+"\n");
 			}
+			writer.close();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
 	
-	public void populaLista() throws Exception {
-		String caminho = "C:\\\\TEMP\\\\professores.csv";
-		File dir = new File(caminho);
+	public void populaLista() throws FileNotFoundException {
+		File dir = new File(Caminho);
 		if (dir.exists()) {
 			try {
-				listaProfessores = readerCont.mapFromCSV(caminho, ";");
+				if (!listaProfessores.isEmpty()) { listaProfessores.clean(); }
+				Fila<Professor> fila = readerCont.mapFromCSV(Caminho, ";");
+				while (!fila.isEmpty()) {
+					listaProfessores.addLast(fila.remove());
+				}
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
 		} else {
-			throw new Exception ("Arquivo Inexistente");
+			throw new FileNotFoundException("Arquivo Inexistente");
 		}
 	}
 }

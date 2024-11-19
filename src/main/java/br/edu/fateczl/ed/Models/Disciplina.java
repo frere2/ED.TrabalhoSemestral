@@ -3,13 +3,14 @@ package br.edu.fateczl.ed.Models;
 import br.edu.fateczl.ed.Enums.EDiaSemana;
 
 public class Disciplina {
-    private int codigo;
+    private String codigo;
     private String nome;
     private String horario;
     private String horasDiarias;
+    private EDiaSemana diaSemana;
     private int codigoCurso;
 
-    public Disciplina(int codigo, String nome, int diaSemana, String horario, String horasDiarias, int codigoCurso) {
+    public Disciplina(String codigo, String nome, EDiaSemana diaSemana, String horario, String horasDiarias, int codigoCurso) {
         this.codigo = codigo;
         this.nome = nome;
         this.diaSemana = diaSemana;
@@ -19,14 +20,14 @@ public class Disciplina {
     }
     
     public Disciplina() {
-    	this(0,"",EDiaSemana.Segunda,"","",0);
+    	this("","", EDiaSemana.Segunda,"","",0);
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -72,7 +73,7 @@ public class Disciplina {
 
     @Override
     public String toString() {
-        return codigo+";"+nome+";"+diaSemana.toString()+";"+horario+";"+horasDiarias+";"+codigoCurso;
+        return codigo+";"+nome+";"+horario+";"+horasDiarias+";"+diaSemana.toString()+";"+codigoCurso;
     }
     
 }

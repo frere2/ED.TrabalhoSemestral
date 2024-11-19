@@ -6,7 +6,7 @@
 
     <groupId>br.edu.fateczl.ed</groupId>
     <artifactId>TrabalhoSemestralED</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -27,11 +27,18 @@
         </dependency>
 
         <dependency>
-            <groupId>model</groupId>
-            <artifactId>model</artifactId>
+            <groupId>br.edu.fateczl.lista</groupId>
+            <artifactId>br.edu.fateczl.lista</artifactId>
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${pom.basedir}/lib/ListaGenerica.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>br.edu.fateczl.fila</groupId>
+            <artifactId>br.edu.fateczl.fila</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/FilaGeneric.jar</systemPath>
         </dependency>
     </dependencies>
 

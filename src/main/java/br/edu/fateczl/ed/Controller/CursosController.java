@@ -1,83 +1,100 @@
 package br.edu.fateczl.ed.Controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import br.edu.fateczl.ed.Infrastructure.CSVReader;
-
-import br.edu.fateczl.ed.Interface.IEntidadesController;
+import br.edu.fateczl.ed.Infrastructure.ConfigReader;
+import br.edu.fateczl.ed.Interface.ICursosController;
 import br.edu.fateczl.ed.Models.Curso;
-import model.Lista;
+import br.edu.fateczl.ed.Utils.Utilities;
+import br.edu.fateczl.fila.Fila;
+import br.edu.fateczl.lista.Lista;
 
-public class CursosController implements IEntidadesController<Curso> {
+public class CursosController implements ICursosController {
+	private  CSVReader<Curso> readerCont = new CSVReader<>(Curso.class);
+	private Lista<Curso> listaCursos;
+	private ConfigReader configReader = new ConfigReader();
+	private final String Caminho = configReader.getFullPath("cursos.csv");
 
-	CSVReader<Curso> readerCont = new CSVReader<>(Curso.class);
-
-	Lista<Curso> listaCursos = new Lista<>();
-	
 	public CursosController(Lista<Curso> listaCursos) {
 		this.listaCursos = listaCursos;
 	}
 
-	@Override
-	public void insere(Curso curso) {
+	public boolean insere(Curso curso) {
+		int tamanho = listaCursos.size();
+		try {
+			for (int i = 0; i < tamanho; i++) {
+				if (listaCursos.get(i).getCodigo() == curso.getCodigo())
+					return false;
+				}
+			} catch (Exception e) {
+				System.err.println("Erro ao inserir curso");
+        }
 		listaCursos.addLast(curso);
+		atualizaArquivo();
+		return true;
 	}
 
-	@Override
-	public void remove(int posicao) {
+	public void removePorCodigo(int codigo) {
+		int tamanho = listaCursos.size();
 		try {
-			listaCursos.remove(posicao);
+			for (int i = 0; i < tamanho; i++) {
+				Curso curso = listaCursos.get(i);
+				if (curso.getCodigo() == codigo) {
+					listaCursos.remove(i);
+				}
+			}
+			atualizaArquivo();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
 
-	@Override
-	public void consulta() {
+	public Curso consultaPorCodigo(int codigo) {
 		int tamanho = listaCursos.size();
 		for (int i = 0; i < tamanho; i++) {
 			try {
-				System.out.println("Código: " +listaCursos.get(i).getCodigo()+ " Curso: " +listaCursos.get(i).getNome()+ " Área: " +listaCursos.get(i).getArea());
+				Curso curso = listaCursos.get(i);
+				if (curso.getCodigo() == codigo) {
+					return curso;
+				}
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
 		}
+		return null;
 	}
 
-	@Override
-	public void atualizaArquivo(String caminho) {
-		//Caminho de teste de arquivo: "C:" + File.separator + "TEMP" + File.separator + "cursos.csv"
-		//path	/ED.TrabalhoSemestral/src/main/java/br/edu/fateczl/ed/Repository/cursos.csv
+	public void atualizaArquivo() {
 		try {
-			File dir = new File(caminho);
-			if (dir.exists() && dir.isDirectory()) {
-				boolean existe = false;
-				File arquivo = new File (caminho, "cursos.csv"); //new File (caminho, nome);
-				if (arquivo.exists()) {existe = true;}
-				FileWriter writer = new FileWriter(arquivo, existe);
-				if (existe == false) {writer.write("codigo;nome;area\n");}
-				int tamanho = listaCursos.size();
-				for (int i = 0; i < tamanho; i++) {
-					writer.write(listaCursos.get(i).toString()+"\n");
-				}
-				writer.close();
+			File arquivo = new File (Caminho);
+			FileWriter writer = new FileWriter(arquivo);
+			writer.write(Utilities.GetHeadersByClass(Curso.class) + "\n");
+			int tamanho = listaCursos.size();
+			for (int i = 0; i < tamanho; i++) {
+				writer.write(listaCursos.get(i).toString()+"\n");
 			}
+			writer.close();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
 	
-	public void populaLista() throws Exception {
-		String caminho = "C:\\TEMP\\cursos.csv";
-		File dir = new File(caminho);
+	public void populaLista() throws FileNotFoundException {
+		File dir = new File(Caminho);
 		if (dir.exists()) {
 			try {
-				listaCursos = readerCont.mapFromCSV("C:\\TEMP\\cursos.csv", ";");
+				if (!listaCursos.isEmpty()) { listaCursos.clean(); }
+				Fila<Curso> fila = readerCont.mapFromCSV(Caminho, ";");
+				while (!fila.isEmpty()) {
+					listaCursos.addLast(fila.remove());
+				}
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
 		} else {
-			throw new Exception ("Arquivo Inexistente");
+			throw new FileNotFoundException("Arquivo Inexistente");
 		}
 	}
 }

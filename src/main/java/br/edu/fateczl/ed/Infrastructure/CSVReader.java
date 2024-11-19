@@ -1,7 +1,7 @@
 package br.edu.fateczl.ed.Infrastructure;
 
-import model.Lista;
-
+import br.edu.fateczl.ed.Enums.EDiaSemana;
+import br.edu.fateczl.fila.Fila;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,30 +15,32 @@ public class CSVReader<T> {
         this.type = type;
     }
 
-    public Lista<T> mapFromCSV(String filePath, String delimiter) throws Exception {
-        Lista<T> resultList = new Lista<>();
+    public Fila<T> mapFromCSV(String filePath, String delimiter) throws Exception {
+        Fila<T> resultFila = new Fila<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            String[] headers = br.readLine().split(delimiter);
+            String firstLine = br.readLine();
+            if (firstLine == null || firstLine.isEmpty()) {
+                return resultFila;
+            }
+
+            String[] headers =  firstLine.split(delimiter);
 
             if (headers.length != type.getDeclaredFields().length) {
                 throw new Exception("ERRO ao ler arquivo!");
             }
-
-            int pos = 0;
-
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(delimiter);
                 T obj = createObject(headers, values);
-                resultList.add(pos, obj);
-                pos++;
+
+                resultFila.insert(obj);
             }
         } catch (IOException e) {
             System.err.println("ERRO ao ler arquivo: " + filePath + ": " + e.getMessage());
         }
 
-        return resultList;
+        return resultFila;
     }
 
     private T createObject(String[] headers, String[] values) throws Exception {
@@ -46,7 +48,7 @@ public class CSVReader<T> {
         T obj = constructor.newInstance();
 
         for (int i = 0; i < headers.length; i++) {
-            String fieldName = headers[i].toLowerCase();
+            String fieldName = headers[i];
             Field field = type.getDeclaredField(fieldName);
             field.setAccessible(true); // não podemos acessar os getters e setters aqui
             setFieldValue(field, obj, values[i]);
@@ -60,10 +62,12 @@ public class CSVReader<T> {
 
         if (fieldType == int.class) {
             field.set(obj, Integer.parseInt(value));
-        } else if (fieldType == double.class) {
+        } else if (fieldType == Double.class) {
             field.set(obj, Double.parseDouble(value));
-        } else if (fieldType == boolean.class) {
+        } else if (fieldType == Boolean.class) {
             field.set(obj, Boolean.parseBoolean(value));
+        } else if (fieldType == EDiaSemana.class) {
+            field.set(obj, EDiaSemana.valueOf(value));
         } else {
             field.set(obj, value);
         }
