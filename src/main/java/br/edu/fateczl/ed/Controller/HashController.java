@@ -5,6 +5,11 @@ import br.edu.fateczl.ed.Models.*;
 
 public class HashController {
 	/*
+import model.Lista;
+import br.edu.fateczl.ed.Models.*;
+
+public class HashController {
+	
 	private Lista<?>[] hashTable = new Lista[4];
 	
 	private int size = hashTable.length;

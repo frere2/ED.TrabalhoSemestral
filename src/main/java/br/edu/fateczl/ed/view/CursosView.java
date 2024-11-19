@@ -57,7 +57,7 @@ public class CursosView {
     public JPanel getMainPanel() {
         return Cursos;
     }
-
+  
     private void setupTable() {
         try {
             DefaultTableModel model = new DefaultTableModel(new String[]{"Código", "Nome", "Área"}, 0);
@@ -75,7 +75,6 @@ public class CursosView {
             throw new RuntimeException(e);
         }
     }
-
     private void addActionListeners(JFrame frame) {
         ActionListener updateClockAction = e -> {
             SimpleDateFormat sourceDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -212,13 +211,11 @@ public class CursosView {
                     JTable target = (JTable) e.getSource();
                     int row = target.getSelectedRow();
                     PainelCursos.setSelectedIndex(0);
-
                     InputConsultaCurso.setText((String) TabelaCursos.getValueAt(row, 0));
                     ButtonConsultaCurso.doClick();
                 }
             }
         });
-
         atualizarButton.addActionListener(e -> {
             setupTable();
         });

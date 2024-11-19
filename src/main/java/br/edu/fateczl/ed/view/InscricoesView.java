@@ -65,6 +65,7 @@ public class InscricoesView {
         return Inscricoes;
     }
 
+
     private void setupTable(Lista<Inscricao> lista) {
         if (lista == null) lista = inscricaoLista;
         try {
@@ -150,7 +151,7 @@ public class InscricoesView {
             throw new RuntimeException(e);
         }
     }
-
+  
     private void addActionListeners(JFrame frame) {
         ActionListener updateClockAction = e -> {
             SimpleDateFormat sourceDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

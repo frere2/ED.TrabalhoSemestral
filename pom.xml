@@ -33,7 +33,6 @@
             <scope>system</scope>
             <systemPath>${pom.basedir}/lib/ListaGenerica.jar</systemPath>
         </dependency>
-
         <dependency>
             <groupId>br.edu.fateczl.fila</groupId>
             <artifactId>br.edu.fateczl.fila</artifactId>
