@@ -6,8 +6,6 @@ import br.edu.fateczl.ed.Controller.InscricoesController;
 import br.edu.fateczl.ed.Models.Curso;
 import br.edu.fateczl.ed.Models.Disciplina;
 import br.edu.fateczl.ed.Models.Inscricao;
-import br.edu.fateczl.ed.Models.Professor;
-import br.edu.fateczl.ed.Utils.Utilities;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -44,6 +42,7 @@ public class CursosView {
     private JButton atualizarButton;
     private JButton InserirCursoButton;
     private JButton LimparCursoButton;
+    private JButton EditarCursoButton;
 
     public static Integer SelectedCurso;
 
@@ -195,6 +194,17 @@ public class CursosView {
             InputAreaCurso.setText("");
         });
 
+        EditarCursoButton.addActionListener(e -> {
+            if (NomeCurso.isEnabled() == false && AreaCurso.isEnabled() == false) {
+                NomeCurso.setEnabled(true);
+                AreaCurso.setEnabled(true);
+            } else {
+                NomeCurso.setEnabled(false);
+                AreaCurso.setEnabled(false);
+            }
+
+        });
+
         TabelaCursos.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 // o ideal seria usar um evento de double click, mas devido a seleção de linha/coluna, foi necessário usar 1 click
@@ -241,11 +251,11 @@ public class CursosView {
         PainelCursos = new JTabbedPane();
         Cursos.add(PainelCursos, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(200, 200), null, 0, false));
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(5, 3, new Insets(0, 30, 0, 30), -1, -1));
+        panel1.setLayout(new GridLayoutManager(5, 4, new Insets(0, 30, 0, 30), -1, -1));
         PainelCursos.addTab("Consulta", panel1);
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(1, 3, new Insets(0, 30, 0, 30), -1, -1));
-        panel1.add(panel2, new GridConstraints(0, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.add(panel2, new GridConstraints(0, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         InputConsultaCurso = new JTextField();
         InputConsultaCurso.setText("");
         panel2.add(InputConsultaCurso, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
@@ -264,7 +274,7 @@ public class CursosView {
         panel2.add(voltarButton, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(3, 1, new Insets(0, 70, 0, 70), -1, -1));
-        panel1.add(panel3, new GridConstraints(1, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.add(panel3, new GridConstraints(1, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         CodCurso = new JTextField();
         CodCurso.setEditable(true);
         CodCurso.setEnabled(false);
@@ -296,13 +306,16 @@ public class CursosView {
         ExcluirButton.setEnabled(true);
         ExcluirButton.setMargin(new Insets(0, 0, 0, 0));
         ExcluirButton.setText("Excluir");
-        panel1.add(ExcluirButton, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
+        panel1.add(ExcluirButton, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
         SalvarButton = new JButton();
         SalvarButton.setBackground(new Color(-16022238));
         SalvarButton.setEnabled(true);
         SalvarButton.setMargin(new Insets(0, 0, 0, 0));
         SalvarButton.setText("Salvar");
         panel1.add(SalvarButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
+        EditarCursoButton = new JButton();
+        EditarCursoButton.setText("Editar");
+        panel1.add(EditarCursoButton, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         PainelCursos.addTab("Cadastro", panel4);
@@ -440,4 +453,5 @@ public class CursosView {
     public JComponent $$$getRootComponent$$$() {
         return Cursos;
     }
+
 }
