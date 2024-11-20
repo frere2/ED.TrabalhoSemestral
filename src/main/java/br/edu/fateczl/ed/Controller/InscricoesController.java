@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import br.edu.fateczl.ed.Infrastructure.CSVReader;
 import br.edu.fateczl.ed.Infrastructure.ConfigReader;
 import br.edu.fateczl.ed.Interface.IInscricoesController;
+import br.edu.fateczl.ed.Models.Disciplina;
 import br.edu.fateczl.ed.Models.Inscricao;
 import br.edu.fateczl.ed.Utils.Utilities;
 import br.edu.fateczl.fila.Fila;
@@ -112,4 +113,17 @@ public class InscricoesController implements IInscricoesController {
 			throw new FileNotFoundException("Arquivo Inexistente");
 		}
 	}
+	
+	public void alteraDados(Inscricao inscricao) throws Exception {
+		int tamanho = listaInscricoes.size();
+		for (int i = 0; i < tamanho; i++) {
+			if (inscricao.getCodigoProcesso() == listaInscricoes.get(i).getCodigoProcesso()) {
+				listaInscricoes.get(i).setCodigoDisciplina(inscricao.getCodigoDisciplina());
+				listaInscricoes.get(i).setCPF(inscricao.getCPF());
+				atualizaArquivo();
+				break;
+			}
+		}
+	}
+	
 }

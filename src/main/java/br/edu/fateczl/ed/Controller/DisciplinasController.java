@@ -130,6 +130,7 @@ public class DisciplinasController implements IDisciplinasController {
 				listaDisciplinas.get(i).setHorario(disciplina.getHorario());
 				listaDisciplinas.get(i).setHorasDiarias(disciplina.getHorasDiarias());
 				listaDisciplinas.get(i).setCodigoCurso(disciplina.getCodigoCurso());
+				atualizaArquivo();
 				break;
 			}
 		}

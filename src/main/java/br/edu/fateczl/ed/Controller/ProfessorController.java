@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import br.edu.fateczl.ed.Infrastructure.CSVReader;
 import br.edu.fateczl.ed.Infrastructure.ConfigReader;
 import br.edu.fateczl.ed.Interface.IProfessorController;
+import br.edu.fateczl.ed.Models.Disciplina;
 import br.edu.fateczl.ed.Models.Professor;
 import br.edu.fateczl.ed.Utils.Utilities;
 import br.edu.fateczl.fila.Fila;
@@ -99,4 +100,18 @@ public class ProfessorController implements IProfessorController {
 			throw new FileNotFoundException("Arquivo Inexistente");
 		}
 	}
+	
+	public void alteraDados(Professor professor) throws Exception {
+		int tamanho = listaProfessores.size();
+		for (int i = 0; i < tamanho; i++) {
+			if (professor.getCPF() == listaProfessores.get(i).getCPF()) {
+				listaProfessores.get(i).setNome(professor.getNome());
+				listaProfessores.get(i).setArea(professor.getArea());
+				listaProfessores.get(i).setPontuacao(professor.getPontuacao());
+				atualizaArquivo();
+				break;
+			}
+		}
+	}
+	
 }

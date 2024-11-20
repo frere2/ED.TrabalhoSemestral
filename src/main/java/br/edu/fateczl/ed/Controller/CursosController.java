@@ -104,6 +104,7 @@ public class CursosController implements ICursosController {
 			if (curso.getCodigo() == listaCursos.get(i).getCodigo()) {
 				listaCursos.get(i).setNome(curso.getNome());
 				listaCursos.get(i).setArea(curso.getArea());
+				atualizaArquivo();
 				break;
 			}
 		}
