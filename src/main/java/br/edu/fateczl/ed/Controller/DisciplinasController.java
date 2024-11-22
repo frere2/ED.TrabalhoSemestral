@@ -3,9 +3,12 @@ package br.edu.fateczl.ed.Controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+
+import br.edu.fateczl.ed.Enums.EDiaSemana;
 import br.edu.fateczl.ed.Infrastructure.CSVReader;
 import br.edu.fateczl.ed.Infrastructure.ConfigReader;
 import br.edu.fateczl.ed.Interface.IDisciplinasController;
+import br.edu.fateczl.ed.Models.Curso;
 import br.edu.fateczl.ed.Models.Disciplina;
 import br.edu.fateczl.ed.Utils.Utilities;
 import br.edu.fateczl.fila.Fila;
@@ -117,4 +120,20 @@ public class DisciplinasController implements IDisciplinasController {
 			throw new FileNotFoundException("Arquivo Inexistente");
 		}
 	}
+	
+	public void alteraDados(Disciplina disciplina) throws Exception {
+		int tamanho = listaDisciplinas.size();
+		for (int i = 0; i < tamanho; i++) {
+			if (disciplina.getCodigo() == listaDisciplinas.get(i).getCodigo()) {
+				listaDisciplinas.get(i).setNome(disciplina.getNome());
+				listaDisciplinas.get(i).setDiaSemana(disciplina.getDiaSemana());
+				listaDisciplinas.get(i).setHorario(disciplina.getHorario());
+				listaDisciplinas.get(i).setHorasDiarias(disciplina.getHorasDiarias());
+				listaDisciplinas.get(i).setCodigoCurso(disciplina.getCodigoCurso());
+				atualizaArquivo();
+				break;
+			}
+		}
+	}
+	
 }

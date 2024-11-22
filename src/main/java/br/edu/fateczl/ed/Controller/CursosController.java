@@ -97,4 +97,18 @@ public class CursosController implements ICursosController {
 			throw new FileNotFoundException("Arquivo Inexistente");
 		}
 	}
+	
+	public void alteraDados(Curso curso) throws Exception {
+		int tamanho = listaCursos.size();
+		for (int i = 0; i < tamanho; i++) {
+			if (curso.getCodigo() == listaCursos.get(i).getCodigo()) {
+				listaCursos.get(i).setNome(curso.getNome());
+				listaCursos.get(i).setArea(curso.getArea());
+				atualizaArquivo();
+				break;
+			}
+		}
+	}
+	
+	
 }
