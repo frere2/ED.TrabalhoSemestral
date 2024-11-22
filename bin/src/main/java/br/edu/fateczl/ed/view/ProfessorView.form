@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="br.edu.fateczl.ed.view.ProfessorView">
+  <grid id="27dc6" binding="Professor" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="924" height="858"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <tabbedpane id="bd66e" binding="PainelProfessor">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="200" height="200"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="90a39" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="30" bottom="0" right="30"/>
+            <constraints>
+              <tabbedpane title="Consulta"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="24a5" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="30" bottom="0" right="30"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="4b75b" class="javax.swing.JTextField" binding="InputConsultaProf">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                  <component id="2f770" class="javax.swing.JButton" binding="ButtonConsultaProf">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <icon value="search.png"/>
+                      <text value="Pesquisar"/>
+                    </properties>
+                  </component>
+                  <component id="f725d" class="javax.swing.JButton" binding="voltarButton" default-binding="true">
+                    <constraints>
+                      <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <contentAreaFilled value="true"/>
+                      <icon value="home.png"/>
+                      <iconTextGap value="4"/>
+                      <inheritsPopupMenu value="false"/>
+                      <text value="MENU"/>
+                      <verticalAlignment value="0"/>
+                    </properties>
+                    <clientProperties>
+                      <hideActionText class="java.lang.Boolean" value="true"/>
+                    </clientProperties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="a8292" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="70" bottom="0" right="70"/>
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="414aa" class="javax.swing.JTextField" binding="CPFProf">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="true"/>
+                      <enabled value="false"/>
+                      <font/>
+                      <horizontalAlignment value="0"/>
+                      <text value="CPF"/>
+                      <toolTipText value=""/>
+                    </properties>
+                  </component>
+                  <component id="208e5" class="javax.swing.JTextField" binding="NomeProf">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <enabled value="false"/>
+                      <font/>
+                      <horizontalAlignment value="0"/>
+                      <text value="Nome"/>
+                    </properties>
+                    <clientProperties>
+                      <html.disable class="java.lang.Boolean" value="true"/>
+                    </clientProperties>
+                  </component>
+                  <component id="dff46" class="javax.swing.JTextField" binding="AreaProf">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="true"/>
+                      <enabled value="false"/>
+                      <font/>
+                      <horizontalAlignment value="0"/>
+                      <text value="Área de Atuação"/>
+                    </properties>
+                    <clientProperties>
+                      <html.disable class="java.lang.Boolean" value="true"/>
+                    </clientProperties>
+                  </component>
+                  <component id="4b445" class="javax.swing.JTextField" binding="PontuacaoProf">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <enabled value="false"/>
+                      <font/>
+                      <horizontalAlignment value="0"/>
+                      <text value="Pontuação"/>
+                    </properties>
+                    <clientProperties>
+                      <html.disable class="java.lang.Boolean" value="true"/>
+                    </clientProperties>
+                  </component>
+                </children>
+              </grid>
+              <component id="9f7c9" class="javax.swing.JButton" binding="ExcluirButton">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="100" height="30"/>
+                    <preferred-size width="140" height="30"/>
+                    <maximum-size width="140" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-8060413"/>
+                  <enabled value="true"/>
+                  <margin top="0" left="0" bottom="0" right="0"/>
+                  <text value="Excluir"/>
+                </properties>
+              </component>
+              <component id="b4c02" class="javax.swing.JButton" binding="SalvarButton">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="100" height="30"/>
+                    <preferred-size width="140" height="30"/>
+                    <maximum-size width="140" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-16022238"/>
+                  <enabled value="true"/>
+                  <margin top="0" left="0" bottom="0" right="0"/>
+                  <text value="Salvar"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="5c49a" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Cadastro"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="21477" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="70" bottom="0" right="70"/>
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="ef677" class="javax.swing.JTextField" binding="InputCPFProf">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="true"/>
+                      <enabled value="true"/>
+                      <font/>
+                      <horizontalAlignment value="0"/>
+                      <text value=""/>
+                      <toolTipText value="CPF do Professor"/>
+                    </properties>
+                  </component>
+                  <component id="b0a4e" class="javax.swing.JTextField" binding="InputNomeProf">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <font/>
+                      <horizontalAlignment value="0"/>
+                      <text value=""/>
+                      <toolTipText value="Nome do Professor"/>
+                    </properties>
+                    <clientProperties>
+                      <html.disable class="java.lang.Boolean" value="true"/>
+                    </clientProperties>
+                  </component>
+                  <component id="c47a1" class="javax.swing.JTextField" binding="InputAreaProf">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="true"/>
+                      <enabled value="true"/>
+                      <font/>
+                      <horizontalAlignment value="0"/>
+                      <text value=""/>
+                      <toolTipText value="Área de Atuação do Professor"/>
+                    </properties>
+                    <clientProperties>
+                      <html.disable class="java.lang.Boolean" value="true"/>
+                    </clientProperties>
+                  </component>
+                  <component id="61429" class="javax.swing.JTextField" binding="InputPontuacaoProf">
+                    <constraints>
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <font/>
+                      <horizontalAlignment value="0"/>
+                      <text value=""/>
+                      <toolTipText value="Pontuação do Professor"/>
+                    </properties>
+                    <clientProperties>
+                      <html.disable class="java.lang.Boolean" value="true"/>
+                    </clientProperties>
+                  </component>
+                  <component id="491ef" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Pontuação"/>
+                    </properties>
+                  </component>
+                  <component id="c13fc" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Área de Atuação"/>
+                    </properties>
+                  </component>
+                  <component id="d4f19" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Nome"/>
+                    </properties>
+                  </component>
+                  <component id="4d566" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="CPF"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="2f7ff" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="30" bottom="0" right="30"/>
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="8efba" class="javax.swing.JButton" binding="InserirProfButton">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Inserir"/>
+                    </properties>
+                  </component>
+                  <component id="4ceba" class="javax.swing.JButton" binding="LimparProfButton">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <contentAreaFilled value="true"/>
+                      <iconTextGap value="4"/>
+                      <inheritsPopupMenu value="false"/>
+                      <text value="Limpar"/>
+                      <verticalAlignment value="0"/>
+                    </properties>
+                    <clientProperties>
+                      <hideActionText class="java.lang.Boolean" value="true"/>
+                    </clientProperties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="f119f" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="30" bottom="0" right="30"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <hspacer id="9eb3c">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </hspacer>
+                  <component id="de3ba" class="javax.swing.JButton" binding="CadastroVoltarButton">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <contentAreaFilled value="true"/>
+                      <icon value="home.png"/>
+                      <iconTextGap value="4"/>
+                      <inheritsPopupMenu value="false"/>
+                      <text value="MENU"/>
+                      <verticalAlignment value="0"/>
+                    </properties>
+                    <clientProperties>
+                      <hideActionText class="java.lang.Boolean" value="true"/>
+                    </clientProperties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="662d9" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Lista de Professores"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <scrollpane id="40c24">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="f39" class="javax.swing.JTable" binding="TabelaProfessores">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
+              <vspacer id="3c011">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <grid id="36e62" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="3" left="15" bottom="0" right="15"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="38749" class="javax.swing.JButton" binding="atualizarButton" default-binding="true">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <minimum-size width="80" height="28"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <icon value="reload.png"/>
+                      <margin top="0" left="0" bottom="0" right="0"/>
+                      <text value="Atualizar"/>
+                    </properties>
+                  </component>
+                  <hspacer id="2357">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </hspacer>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
+      <grid id="488f6" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="30" bottom="0" right="30"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="true">
+            <preferred-size width="-1" height="30"/>
+            <maximum-size width="-1" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <alignmentY value="0.5"/>
+          <background color="-11973552"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="367e5" class="javax.swing.JLabel" binding="TimeLabel">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Hora"/>
+              <toolTipText value="Hora Atual"/>
+            </properties>
+          </component>
+          <component id="dab4f" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="v1.0.0"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
