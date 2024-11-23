@@ -30,7 +30,7 @@ public class HashController {
 		}
 	}
 	
-	public void insereDisciplina() throws Exception {
+	private void insereDisciplina() throws Exception {
 		discCont.populaLista();
 		int sizeDisc = listaDisciplina.size();
 		for (int i = 0; i < sizeDisc; i++) {
@@ -40,6 +40,20 @@ public class HashController {
 				}
 			}
 		}
+	}
+	
+	public Lista<Disciplina> hashFunction(int key) throws Exception {
+		try {
+			insereDisciplina();
+			for (int i = 0; i < sizeCurso; i++) {
+				if (key == hashTable[i].get(0).getCodigoCurso()) {
+					return hashTable[i];
+				}
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		throw new Exception ("Chave não encontrada.");
 	}
 	
 	private int tamanhoListaCurso() {
