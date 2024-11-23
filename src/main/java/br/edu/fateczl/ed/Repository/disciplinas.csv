@@ -1,2 +1,4 @@
 codigo;nome;horario;horasDiarias;diaSemana;codigoCurso
 10;Fritar batata;12h;4;Segunda;3
+11;Fritar ovo;12h;4;Terça;3
+ED;Estrutura de Dados;20:00;3;Segunda;210

@@ -2,6 +2,7 @@ package br.edu.fateczl.ed.view;
 
 import br.edu.fateczl.ed.Controller.CursosController;
 import br.edu.fateczl.ed.Controller.DisciplinasController;
+import br.edu.fateczl.ed.Controller.HashController;
 import br.edu.fateczl.ed.Controller.InscricoesController;
 import br.edu.fateczl.ed.Enums.EDiaSemana;
 import br.edu.fateczl.ed.Models.Curso;
@@ -46,20 +47,25 @@ public class DisciplinasView {
     private JTextField InputHoraInicio;
     private JComboBox InputDiaSemana;
     private JTextField InputHorasDiarias;
-    private JCheckBox exibirApenasDisciplinasComCheckBox;
     private JButton atualizarButton;
     private JButton LimparDisciplinaButton;
     private JButton InserirDisciplinaButton;
     private JButton EditarDisciplinaButtom;
+    private JComboBox EscolhaCursoLista;
+    private JButton pesquisarButton;
 
     public static String SelectedDisciplina = null;
 
     Lista<Disciplina> disciplinaLista = new Lista<>();
+    Lista<Curso> cursoLista = new Lista<>();
+
     private DisciplinasController disciplinasController = new DisciplinasController(disciplinaLista);
+    private CursosController cursosController = new CursosController(cursoLista);
+    private HashController hashController = new HashController();
 
     public DisciplinasView(JFrame frame) {
         addActionListeners(frame);
-        setupTable();
+        setupTable(null);
         setupDropdowns();
     }
 
@@ -67,7 +73,8 @@ public class DisciplinasView {
         return Disciplinas;
     }
 
-    private void setupTable() {
+    private void setupTable(Lista<Disciplina> lista) {
+        if (lista == null) lista = disciplinaLista;
         try {
             DefaultTableModel model = new DefaultTableModel(new String[]{"Código", "Nome", "Horário", "Horas/Dia", "Dia Da Semana", "Curso"}, 0);
             disciplinasController.populaLista();
@@ -75,10 +82,10 @@ public class DisciplinasView {
             TabelaDisciplinas.setColumnSelectionAllowed(false);
             TabelaDisciplinas.setRowSelectionAllowed(false);
 
-            int tamanho = disciplinaLista.size();
+            int tamanho = lista.size();
             for (int i = 0; i < tamanho; i++) {
-                model.addRow(new Object[]{disciplinaLista.get(i).getCodigo(), disciplinaLista.get(i).getNome(), disciplinaLista.get(i).getHorario(),
-                        disciplinaLista.get(i).getHorasDiarias(), disciplinaLista.get(i).getDiaSemana(), disciplinaLista.get(i).getCodigoCurso()});
+                model.addRow(new Object[]{lista.get(i).getCodigo(), lista.get(i).getNome(), lista.get(i).getHorario(),
+                        lista.get(i).getHorasDiarias(), lista.get(i).getDiaSemana(), lista.get(i).getCodigoCurso()});
             }
             TabelaDisciplinas.setModel(model);
         } catch (Exception e) {
@@ -87,26 +94,29 @@ public class DisciplinasView {
     }
 
     private void setupDropdowns() {
-        Lista<Curso> listaCurso = new Lista<>();
-        CursosController cursosController = new CursosController(listaCurso);
-
         try {
-            cursosController.populaLista();
-
             DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 
-            int tamanho = listaCurso.size();
+            cursosController.populaLista();
+            int tamanho = cursoLista.size();
             for (int i = 0; i < tamanho; i++) {
-                model.addElement(listaCurso.get(i).getCodigo() + " - " + listaCurso.get(i).getNome());
+                model.addElement(cursoLista.get(i).getCodigo() + " - " + cursoLista.get(i).getNome());
+            }
+
+            DefaultComboBoxModel<String> model1 = new DefaultComboBoxModel<>();
+            model1.addElement("Todas");
+            for (int i = 0; i < tamanho; i++) {
+                model1.addElement(cursoLista.get(i).getCodigo() + " - " + cursoLista.get(i).getNome());
             }
 
             InputCurso.setModel(model);
+            EscolhaCursoLista.setModel(model1);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-  
+
     private void addActionListeners(JFrame frame) {
         ActionListener updateClockAction = e -> {
             SimpleDateFormat sourceDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -261,8 +271,33 @@ public class DisciplinasView {
             }
         });
 
+        pesquisarButton.addActionListener(e -> {
+            String curso = EscolhaCursoLista.getSelectedItem().toString().split(" ")[0];
+            Lista<Disciplina> DisciplinaPorCursoLista = new Lista<>();
+
+            if (curso.equals("Todas")) {
+                setupTable(null);
+                return;
+            }
+
+            try {
+                Lista<Disciplina> listaInserir = hashController.hashFunction(Integer.parseInt(curso));
+                if (listaInserir != null) {
+                    for (int i = 0; i < listaInserir.size(); i++) {
+                        Disciplina disciplina = listaInserir.get(i);
+                        DisciplinaPorCursoLista.addLast(disciplina);
+                    }
+                }
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+
+            setupTable(DisciplinaPorCursoLista);
+        });
+
         atualizarButton.addActionListener(e -> {
-            setupTable();
+            setupTable(null);
+            EscolhaCursoLista.setSelectedIndex(0);
         });
     }
 
@@ -509,18 +544,25 @@ public class DisciplinasView {
         final Spacer spacer2 = new Spacer();
         panel9.add(spacer2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final JPanel panel10 = new JPanel();
-        panel10.setLayout(new GridLayoutManager(1, 3, new Insets(3, 15, 0, 15), -1, -1));
+        panel10.setLayout(new GridLayoutManager(1, 5, new Insets(3, 15, 0, 15), -1, -1));
         panel9.add(panel10, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         atualizarButton = new JButton();
         atualizarButton.setIcon(new ImageIcon(getClass().getResource("/reload.png")));
         atualizarButton.setMargin(new Insets(0, 0, 0, 0));
         atualizarButton.setText("Atualizar");
-        panel10.add(atualizarButton, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(80, 28), null, null, 0, false));
+        panel10.add(atualizarButton, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(80, 28), null, null, 0, false));
         final Spacer spacer3 = new Spacer();
-        panel10.add(spacer3, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-        exibirApenasDisciplinasComCheckBox = new JCheckBox();
-        exibirApenasDisciplinasComCheckBox.setText("Exibir apenas disciplinas com processos abertos");
-        panel10.add(exibirApenasDisciplinasComCheckBox, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel10.add(spacer3, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        final JLabel label7 = new JLabel();
+        label7.setText("Curso");
+        panel10.add(label7, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        EscolhaCursoLista = new JComboBox();
+        panel10.add(EscolhaCursoLista, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pesquisarButton = new JButton();
+        pesquisarButton.setHorizontalAlignment(0);
+        pesquisarButton.setIcon(new ImageIcon(getClass().getResource("/search.png")));
+        pesquisarButton.setText("Pesquisar");
+        panel10.add(pesquisarButton, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel11 = new JPanel();
         panel11.setLayout(new GridLayoutManager(1, 2, new Insets(0, 30, 0, 30), -1, -1));
         panel11.setAlignmentY(0.5f);
@@ -530,9 +572,9 @@ public class DisciplinasView {
         TimeLabel.setText("Hora");
         TimeLabel.setToolTipText("Hora Atual");
         panel11.add(TimeLabel, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JLabel label7 = new JLabel();
-        label7.setText("v1.0.0");
-        panel11.add(label7, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label8 = new JLabel();
+        label8.setText("v1.0.0");
+        panel11.add(label8, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

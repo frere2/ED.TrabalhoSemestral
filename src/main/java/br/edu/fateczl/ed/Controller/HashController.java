@@ -8,11 +8,11 @@ import br.edu.fateczl.ed.Models.*;
 
 public class HashController {
 	
-	Lista<Disciplina> listaDisciplina = new Lista<>();
-	Lista<Curso> listaCurso = new Lista<>();
-	
-	DisciplinasController discCont = new DisciplinasController(listaDisciplina);
-	CursosController cursoCont = new CursosController(listaCurso);
+	private Lista<Disciplina> listaDisciplina = new Lista<>();
+	private Lista<Curso> listaCurso = new Lista<>();
+
+	private DisciplinasController discCont = new DisciplinasController(listaDisciplina);
+	private CursosController cursoCont = new CursosController(listaCurso);
 
 	int sizeCurso = tamanhoListaCurso();
 	
@@ -23,15 +23,15 @@ public class HashController {
 		this.cursoCont = cursoCont;
 		this.discCont = discCont;
 	}
-	
-	public HashController() {
-		for(int i = 0; i < sizeCurso; i++) {
-			hashTable[i] = new Lista<Disciplina>();
-		}
-	}
+
+	public HashController() {}
 	
 	private void insereDisciplina() throws Exception {
 		discCont.populaLista();
+		for(int i = 0; i < sizeCurso; i++) {
+			hashTable[i] = new Lista<>();
+		}
+
 		int sizeDisc = listaDisciplina.size();
 		for (int i = 0; i < sizeDisc; i++) {
 			for (int j = 0; j < sizeCurso; j++) {
@@ -42,18 +42,18 @@ public class HashController {
 		}
 	}
 	
-	public Lista<Disciplina> hashFunction(int key) throws Exception {
+	public Lista<Disciplina> hashFunction(int key) {
 		try {
 			insereDisciplina();
 			for (int i = 0; i < sizeCurso; i++) {
-				if (key == hashTable[i].get(0).getCodigoCurso()) {
+				if (!hashTable[i].isEmpty() && key == hashTable[i].get(0).getCodigoCurso()) {
 					return hashTable[i];
 				}
 			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		throw new Exception ("Chave não encontrada.");
+		return null;
 	}
 	
 	private int tamanhoListaCurso() {
@@ -64,5 +64,4 @@ public class HashController {
 		}
 		return listaCurso.size();
 	}
-
 }
