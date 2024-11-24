@@ -43,4 +43,7 @@ public class Inscricao {
     public String toString() {
         return cpf+";"+codigoDisciplina+";"+codigoProcesso;
     }
+
+    public void atualizaArquivo() {
+    }
 }

@@ -57,7 +57,7 @@ public class CursosView {
     public JPanel getMainPanel() {
         return Cursos;
     }
-  
+
     private void setupTable() {
         try {
             DefaultTableModel model = new DefaultTableModel(new String[]{"Código", "Nome", "Área"}, 0);
@@ -75,6 +75,7 @@ public class CursosView {
             throw new RuntimeException(e);
         }
     }
+
     private void addActionListeners(JFrame frame) {
         ActionListener updateClockAction = e -> {
             SimpleDateFormat sourceDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -114,6 +115,9 @@ public class CursosView {
                 NomeCurso.setText(curso.getNome());
                 AreaCurso.setText(curso.getArea());
                 SelectedCurso = Integer.valueOf(cod);
+
+                NomeCurso.setEnabled(false);
+                AreaCurso.setEnabled(false);
                 return;
             }
 
@@ -168,8 +172,16 @@ public class CursosView {
                 return;
             }
 
-            // temporário, a att vai ocorrer aqui
-            JOptionPane.showMessageDialog(frame, "Curso salvo com sucesso.");
+            Curso curso = new Curso(Integer.parseInt(CodCurso.getText()), NomeCurso.getText(), AreaCurso.getText());
+            try {
+                cursoController.alteraDados(curso);
+                JOptionPane.showMessageDialog(frame, "Curso salvo com sucesso.");
+                NomeCurso.setEnabled(false);
+                AreaCurso.setEnabled(false);
+                return;
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         InserirCursoButton.addActionListener(e -> {
@@ -180,11 +192,15 @@ public class CursosView {
 
             Curso curso = new Curso(Integer.parseInt(InputCodCurso.getText()), InputNomeCurso.getText(), InputAreaCurso.getText());
             boolean sucesso = cursoController.insere(curso);
+            InputNomeCurso.setText("");
+            InputCodCurso.setText("");
+            InputAreaCurso.setText("");
             if (!sucesso) {
                 JOptionPane.showMessageDialog(frame, "Esse curso já está cadastrado.");
                 return;
             }
             JOptionPane.showMessageDialog(frame, "Curso adicionado com sucesso.");
+
         });
 
         LimparCursoButton.addActionListener(e -> {
@@ -194,6 +210,12 @@ public class CursosView {
         });
 
         EditarCursoButton.addActionListener(e -> {
+            if (NomeCurso.getText().equals("Nome") && AreaCurso.getText().equals("Área de Conhecimento")) {
+                NomeCurso.setEnabled(false);
+                AreaCurso.setEnabled(false);
+                return;
+            }
+
             if (NomeCurso.isEnabled() == false && AreaCurso.isEnabled() == false) {
                 NomeCurso.setEnabled(true);
                 AreaCurso.setEnabled(true);
@@ -201,7 +223,6 @@ public class CursosView {
                 NomeCurso.setEnabled(false);
                 AreaCurso.setEnabled(false);
             }
-
         });
 
         TabelaCursos.addMouseListener(new MouseAdapter() {
@@ -254,7 +275,11 @@ public class CursosView {
         panel2.setLayout(new GridLayoutManager(1, 3, new Insets(0, 30, 0, 30), -1, -1));
         panel1.add(panel2, new GridConstraints(0, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         InputConsultaCurso = new JTextField();
+        InputConsultaCurso.setEditable(true);
+        InputConsultaCurso.setEnabled(true);
+        InputConsultaCurso.setHorizontalAlignment(0);
         InputConsultaCurso.setText("");
+        InputConsultaCurso.setToolTipText("Digite o Código do Curso");
         panel2.add(InputConsultaCurso, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         ButtonConsultaCurso = new JButton();
         ButtonConsultaCurso.setIcon(new ImageIcon(getClass().getResource("/search.png")));
@@ -279,7 +304,7 @@ public class CursosView {
         if (CodCursoFont != null) CodCurso.setFont(CodCursoFont);
         CodCurso.setHorizontalAlignment(0);
         CodCurso.setText("Código do Curso");
-        CodCurso.setToolTipText("");
+        CodCurso.setToolTipText("Código do Curso");
         panel3.add(CodCurso, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         NomeCurso = new JTextField();
         NomeCurso.setEnabled(false);
@@ -287,6 +312,7 @@ public class CursosView {
         if (NomeCursoFont != null) NomeCurso.setFont(NomeCursoFont);
         NomeCurso.setHorizontalAlignment(0);
         NomeCurso.setText("Nome");
+        NomeCurso.setToolTipText("Nome");
         NomeCurso.putClientProperty("html.disable", Boolean.TRUE);
         panel3.add(NomeCurso, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         AreaCurso = new JTextField();
@@ -296,6 +322,7 @@ public class CursosView {
         if (AreaCursoFont != null) AreaCurso.setFont(AreaCursoFont);
         AreaCurso.setHorizontalAlignment(0);
         AreaCurso.setText("Área de Conhecimento");
+        AreaCurso.setToolTipText("Área de Conhecimento");
         AreaCurso.putClientProperty("html.disable", Boolean.TRUE);
         panel3.add(AreaCurso, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         ExcluirButton = new JButton();
@@ -344,7 +371,7 @@ public class CursosView {
         if (InputCodCursoFont != null) InputCodCurso.setFont(InputCodCursoFont);
         InputCodCurso.setHorizontalAlignment(0);
         InputCodCurso.setText("");
-        InputCodCurso.setToolTipText("CPF do Professor");
+        InputCodCurso.setToolTipText("Código do Curso");
         panel7.add(InputCodCurso, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         InputNomeCurso = new JTextField();
         InputNomeCurso.setEnabled(true);
@@ -352,7 +379,7 @@ public class CursosView {
         if (InputNomeCursoFont != null) InputNomeCurso.setFont(InputNomeCursoFont);
         InputNomeCurso.setHorizontalAlignment(0);
         InputNomeCurso.setText("");
-        InputNomeCurso.setToolTipText("Nome do Professor");
+        InputNomeCurso.setToolTipText("Nome do Curso");
         InputNomeCurso.putClientProperty("html.disable", Boolean.TRUE);
         panel7.add(InputNomeCurso, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         InputAreaCurso = new JTextField();
@@ -362,7 +389,7 @@ public class CursosView {
         if (InputAreaCursoFont != null) InputAreaCurso.setFont(InputAreaCursoFont);
         InputAreaCurso.setHorizontalAlignment(0);
         InputAreaCurso.setText("");
-        InputAreaCurso.setToolTipText("Área de Atuação do Professor");
+        InputAreaCurso.setToolTipText("Área de Conhecimento");
         InputAreaCurso.putClientProperty("html.disable", Boolean.TRUE);
         panel7.add(InputAreaCurso, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label1 = new JLabel();

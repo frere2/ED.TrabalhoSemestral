@@ -3,6 +3,7 @@ package br.edu.fateczl.ed.Controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.util.Objects;
 
 import br.edu.fateczl.ed.Enums.EDiaSemana;
 import br.edu.fateczl.ed.Infrastructure.CSVReader;
@@ -124,7 +125,7 @@ public class DisciplinasController implements IDisciplinasController {
 	public void alteraDados(Disciplina disciplina) throws Exception {
 		int tamanho = listaDisciplinas.size();
 		for (int i = 0; i < tamanho; i++) {
-			if (disciplina.getCodigo() == listaDisciplinas.get(i).getCodigo()) {
+			if (Objects.equals(disciplina.getCodigo(), listaDisciplinas.get(i).getCodigo())) {
 				listaDisciplinas.get(i).setNome(disciplina.getNome());
 				listaDisciplinas.get(i).setDiaSemana(disciplina.getDiaSemana());
 				listaDisciplinas.get(i).setHorario(disciplina.getHorario());
