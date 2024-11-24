@@ -3,6 +3,7 @@ package br.edu.fateczl.ed.Controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.util.Objects;
 
 import br.edu.fateczl.ed.Infrastructure.CSVReader;
 import br.edu.fateczl.ed.Infrastructure.ConfigReader;
@@ -55,19 +56,20 @@ public class ProfessorController implements IProfessorController {
 	}
 	
 	public Professor consultaPorCPF(String cpf) {
-		int tamanho = listaProfessores.size();
-		for (int i = 0; i < tamanho; i++) {
-			try {
-				Professor professor = listaProfessores.get(i);
-				if (professor.getCPF().equals(cpf)) {
-					return professor;
-				}
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
-			}
-		}
-		return null;
-	}
+        int tamanho = listaProfessores.size();
+        Professor professor = null;
+        for (int i = 0; i < tamanho; i++) {
+            try {
+                professor = listaProfessores.get(i);
+                if (professor.getCPF().equals(cpf)) {
+                    return professor;
+                }
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+        return professor;
+    }
 	
 	public void atualizaArquivo() {
 		try {
@@ -104,7 +106,7 @@ public class ProfessorController implements IProfessorController {
 	public void alteraDados(Professor professor) throws Exception {
 		int tamanho = listaProfessores.size();
 		for (int i = 0; i < tamanho; i++) {
-			if (professor.getCPF() == listaProfessores.get(i).getCPF()) {
+			if (Objects.equals(professor.getCPF(), listaProfessores.get(i).getCPF())) {
 				listaProfessores.get(i).setNome(professor.getNome());
 				listaProfessores.get(i).setArea(professor.getArea());
 				listaProfessores.get(i).setPontuacao(professor.getPontuacao());

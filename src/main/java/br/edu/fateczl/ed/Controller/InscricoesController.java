@@ -3,6 +3,8 @@ package br.edu.fateczl.ed.Controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.util.Objects;
+
 import br.edu.fateczl.ed.Infrastructure.CSVReader;
 import br.edu.fateczl.ed.Infrastructure.ConfigReader;
 import br.edu.fateczl.ed.Interface.IInscricoesController;
@@ -117,9 +119,8 @@ public class InscricoesController implements IInscricoesController {
 	public void alteraDados(Inscricao inscricao) throws Exception {
 		int tamanho = listaInscricoes.size();
 		for (int i = 0; i < tamanho; i++) {
-			if (inscricao.getCodigoProcesso() == listaInscricoes.get(i).getCodigoProcesso()) {
+			if (Objects.equals(inscricao.getCPF(), listaInscricoes.get(i).getCPF())) {
 				listaInscricoes.get(i).setCodigoDisciplina(inscricao.getCodigoDisciplina());
-				listaInscricoes.get(i).setCPF(inscricao.getCPF());
 				atualizaArquivo();
 				break;
 			}

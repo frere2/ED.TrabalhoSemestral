@@ -334,7 +334,9 @@ public class DisciplinasView {
         panel2.setLayout(new GridLayoutManager(1, 3, new Insets(0, 30, 0, 30), -1, -1));
         panel1.add(panel2, new GridConstraints(0, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         InputConsultaDisciplina = new JTextField();
+        InputConsultaDisciplina.setHorizontalAlignment(0);
         InputConsultaDisciplina.setText("");
+        InputConsultaDisciplina.setToolTipText("Digite o Código da Disciplina");
         panel2.add(InputConsultaDisciplina, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         ButtonConsultaDisciplina = new JButton();
         ButtonConsultaDisciplina.setIcon(new ImageIcon(getClass().getResource("/search.png")));
@@ -367,6 +369,7 @@ public class DisciplinasView {
         if (NomeDisciplinaFont != null) NomeDisciplina.setFont(NomeDisciplinaFont);
         NomeDisciplina.setHorizontalAlignment(0);
         NomeDisciplina.setText("Nome");
+        NomeDisciplina.setToolTipText("Nome");
         NomeDisciplina.putClientProperty("html.disable", Boolean.TRUE);
         panel3.add(NomeDisciplina, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         HorarioDisciplina = new JTextField();
@@ -375,7 +378,8 @@ public class DisciplinasView {
         Font HorarioDisciplinaFont = this.$$$getFont$$$(null, -1, -1, HorarioDisciplina.getFont());
         if (HorarioDisciplinaFont != null) HorarioDisciplina.setFont(HorarioDisciplinaFont);
         HorarioDisciplina.setHorizontalAlignment(0);
-        HorarioDisciplina.setText("Horário de início");
+        HorarioDisciplina.setText("Horário da Disciplina");
+        HorarioDisciplina.setToolTipText("Horário da Disciplina");
         HorarioDisciplina.putClientProperty("html.disable", Boolean.TRUE);
         panel3.add(HorarioDisciplina, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         CodCursoDropdown = new JComboBox();
@@ -384,6 +388,7 @@ public class DisciplinasView {
         if (CodCursoDropdownFont != null) CodCursoDropdown.setFont(CodCursoDropdownFont);
         CodCursoDropdown.setMaximumRowCount(100);
         CodCursoDropdown.setName("Curso");
+        CodCursoDropdown.setToolTipText("Curso");
         panel3.add(CodCursoDropdown, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         CargaHorariaDisciplina = new JTextField();
         CargaHorariaDisciplina.setEditable(true);
@@ -391,10 +396,12 @@ public class DisciplinasView {
         Font CargaHorariaDisciplinaFont = this.$$$getFont$$$(null, -1, -1, CargaHorariaDisciplina.getFont());
         if (CargaHorariaDisciplinaFont != null) CargaHorariaDisciplina.setFont(CargaHorariaDisciplinaFont);
         CargaHorariaDisciplina.setHorizontalAlignment(0);
-        CargaHorariaDisciplina.setText("Horas por Dia");
+        CargaHorariaDisciplina.setText("Carga Horária da Disciplina");
+        CargaHorariaDisciplina.setToolTipText("Carga Horária da Disciplina");
         CargaHorariaDisciplina.putClientProperty("html.disable", Boolean.TRUE);
         panel3.add(CargaHorariaDisciplina, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         DiaSemanaDisciplina = new JComboBox();
+        DiaSemanaDisciplina.setEditable(false);
         DiaSemanaDisciplina.setEnabled(false);
         Font DiaSemanaDisciplinaFont = this.$$$getFont$$$(null, -1, -1, DiaSemanaDisciplina.getFont());
         if (DiaSemanaDisciplinaFont != null) DiaSemanaDisciplina.setFont(DiaSemanaDisciplinaFont);
@@ -408,6 +415,7 @@ public class DisciplinasView {
         defaultComboBoxModel1.addElement("Domingo");
         DiaSemanaDisciplina.setModel(defaultComboBoxModel1);
         DiaSemanaDisciplina.setName("");
+        DiaSemanaDisciplina.putClientProperty("html.disable", Boolean.FALSE);
         panel3.add(DiaSemanaDisciplina, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         ExcluirButton = new JButton();
         ExcluirButton.setBackground(new Color(-8060413));
@@ -455,7 +463,7 @@ public class DisciplinasView {
         if (InputCodDisciplinaFont != null) InputCodDisciplina.setFont(InputCodDisciplinaFont);
         InputCodDisciplina.setHorizontalAlignment(0);
         InputCodDisciplina.setText("");
-        InputCodDisciplina.setToolTipText("CPF do Professor");
+        InputCodDisciplina.setToolTipText("Código da Disciplina");
         panel7.add(InputCodDisciplina, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         InputNomeDisciplina = new JTextField();
         InputNomeDisciplina.setEnabled(true);
@@ -463,7 +471,7 @@ public class DisciplinasView {
         if (InputNomeDisciplinaFont != null) InputNomeDisciplina.setFont(InputNomeDisciplinaFont);
         InputNomeDisciplina.setHorizontalAlignment(0);
         InputNomeDisciplina.setText("");
-        InputNomeDisciplina.setToolTipText("Nome do Professor");
+        InputNomeDisciplina.setToolTipText("Nome da Disciplina");
         InputNomeDisciplina.putClientProperty("html.disable", Boolean.TRUE);
         panel7.add(InputNomeDisciplina, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label1 = new JLabel();
@@ -476,6 +484,7 @@ public class DisciplinasView {
         label3.setText("Código");
         panel7.add(label3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         InputCurso = new JComboBox();
+        InputCurso.setToolTipText("Curso");
         panel7.add(InputCurso, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label4 = new JLabel();
         label4.setText("Dia da Semana");
@@ -504,7 +513,7 @@ public class DisciplinasView {
         if (InputHoraInicioFont != null) InputHoraInicio.setFont(InputHoraInicioFont);
         InputHoraInicio.setHorizontalAlignment(0);
         InputHoraInicio.setText("");
-        InputHoraInicio.setToolTipText("Nome do Professor");
+        InputHoraInicio.setToolTipText("Horário da Disciplina");
         InputHoraInicio.putClientProperty("html.disable", Boolean.TRUE);
         panel7.add(InputHoraInicio, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label6 = new JLabel();
@@ -516,7 +525,7 @@ public class DisciplinasView {
         if (InputHorasDiariasFont != null) InputHorasDiarias.setFont(InputHorasDiariasFont);
         InputHorasDiarias.setHorizontalAlignment(0);
         InputHorasDiarias.setText("");
-        InputHorasDiarias.setToolTipText("Nome do Professor");
+        InputHorasDiarias.setToolTipText("Carga Horária da Disciplina");
         InputHorasDiarias.putClientProperty("html.disable", Boolean.TRUE);
         panel7.add(InputHorasDiarias, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JPanel panel8 = new JPanel();

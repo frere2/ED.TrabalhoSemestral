@@ -40,7 +40,11 @@
                       </grid>
                     </constraints>
                     <properties>
+                      <editable value="true"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="0"/>
                       <text value=""/>
+                      <toolTipText value="Digite o Código do Curso"/>
                     </properties>
                   </component>
                   <component id="2f770" class="javax.swing.JButton" binding="ButtonConsultaCurso">
@@ -90,7 +94,7 @@
                       <font/>
                       <horizontalAlignment value="0"/>
                       <text value="Código do Curso"/>
-                      <toolTipText value=""/>
+                      <toolTipText value="Código do Curso"/>
                     </properties>
                   </component>
                   <component id="208e5" class="javax.swing.JTextField" binding="NomeCurso">
@@ -104,6 +108,7 @@
                       <font/>
                       <horizontalAlignment value="0"/>
                       <text value="Nome"/>
+                      <toolTipText value="Nome"/>
                     </properties>
                     <clientProperties>
                       <html.disable class="java.lang.Boolean" value="true"/>
@@ -121,6 +126,7 @@
                       <font/>
                       <horizontalAlignment value="0"/>
                       <text value="Área de Conhecimento"/>
+                      <toolTipText value="Área de Conhecimento"/>
                     </properties>
                     <clientProperties>
                       <html.disable class="java.lang.Boolean" value="true"/>
@@ -243,7 +249,7 @@
                           <font/>
                           <horizontalAlignment value="0"/>
                           <text value=""/>
-                          <toolTipText value="CPF do Professor"/>
+                          <toolTipText value="Código do Curso"/>
                         </properties>
                       </component>
                       <component id="b0a4e" class="javax.swing.JTextField" binding="InputNomeCurso">
@@ -257,7 +263,7 @@
                           <font/>
                           <horizontalAlignment value="0"/>
                           <text value=""/>
-                          <toolTipText value="Nome do Professor"/>
+                          <toolTipText value="Nome do Curso"/>
                         </properties>
                         <clientProperties>
                           <html.disable class="java.lang.Boolean" value="true"/>
@@ -275,7 +281,7 @@
                           <font/>
                           <horizontalAlignment value="0"/>
                           <text value=""/>
-                          <toolTipText value="Área de Atuação do Professor"/>
+                          <toolTipText value="Área de Conhecimento"/>
                         </properties>
                         <clientProperties>
                           <html.disable class="java.lang.Boolean" value="true"/>

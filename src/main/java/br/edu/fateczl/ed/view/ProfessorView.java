@@ -45,6 +45,7 @@ public class ProfessorView {
     private JTextField InputNomeProf;
     private JTextField InputAreaProf;
     private JTextField InputPontuacaoProf;
+    private JButton EditarButton;
 
     public static String SelectedCPF = null;
 
@@ -168,8 +169,20 @@ public class ProfessorView {
                 return;
             }
 
-            // temporário, a att vai ocorrer aqui
-            JOptionPane.showMessageDialog(frame, "Professor salvo com sucesso.");
+            String cpf = CPFProf.getText().replaceAll("\\D", "");
+
+            Professor professor1 = new Professor(cpf, NomeProf.getText(), AreaProf.getText(), Double.parseDouble(PontuacaoProf.getText()));
+            try {
+                professorController.alteraDados(professor1);
+                JOptionPane.showMessageDialog(frame, "Professor salvo com sucesso.");
+                NomeProf.setEnabled(false);
+                AreaProf.setEnabled(false);
+                PontuacaoProf.setEnabled(false);
+                return;
+
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         InserirProfButton.addActionListener(e -> {
@@ -187,8 +200,12 @@ public class ProfessorView {
 
             Professor professor = new Professor(InputCPFProf.getText(), InputNomeProf.getText(), InputAreaProf.getText(), Double.parseDouble(InputPontuacaoProf.getText()));
             boolean sucesso = professorController.insere(professor);
+            InputAreaProf.setText("");
+            InputNomeProf.setText("");
+            InputCPFProf.setText("");
+            InputPontuacaoProf.setText("");
             if (!sucesso) {
-                JOptionPane.showMessageDialog(frame, "Esse cpf já está cadastrado.");
+                JOptionPane.showMessageDialog(frame, "Este cpf já está cadastrado.");
                 return;
             }
             JOptionPane.showMessageDialog(frame, "Professor adicionado com sucesso.");
@@ -199,6 +216,26 @@ public class ProfessorView {
             InputNomeProf.setText("");
             InputCPFProf.setText("");
             InputPontuacaoProf.setText("");
+        });
+
+        EditarButton.addActionListener(e -> {
+            if (NomeProf.getText().equals("Nome") && AreaProf.getText().equals("Área de Atuação") && PontuacaoProf.getText().equals("Pontuação")) {
+                NomeProf.setEnabled(false);
+                AreaProf.setEnabled(false);
+                PontuacaoProf.setEnabled(false);
+                return;
+            }
+
+            if (NomeProf.isEnabled() == false && AreaProf.isEnabled() == false && PontuacaoProf.isEnabled() == false) {
+                NomeProf.setEnabled(true);
+                AreaProf.setEnabled(true);
+                PontuacaoProf.setEnabled(true);
+            } else {
+                NomeProf.setEnabled(false);
+                AreaProf.setEnabled(false);
+                PontuacaoProf.setEnabled(false);
+            }
+
         });
 
         TabelaProfessores.addMouseListener(new MouseAdapter() {
@@ -249,13 +286,15 @@ public class ProfessorView {
         PainelProfessor = new JTabbedPane();
         Professor.add(PainelProfessor, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(200, 200), null, 0, false));
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(5, 3, new Insets(0, 30, 0, 30), -1, -1));
+        panel1.setLayout(new GridLayoutManager(5, 4, new Insets(0, 30, 0, 30), -1, -1));
         PainelProfessor.addTab("Consulta", panel1);
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(1, 3, new Insets(0, 30, 0, 30), -1, -1));
-        panel1.add(panel2, new GridConstraints(0, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.add(panel2, new GridConstraints(0, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         InputConsultaProf = new JTextField();
+        InputConsultaProf.setHorizontalAlignment(0);
         InputConsultaProf.setText("");
+        InputConsultaProf.setToolTipText("Digite o CPF do Professor");
         panel2.add(InputConsultaProf, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         ButtonConsultaProf = new JButton();
         ButtonConsultaProf.setIcon(new ImageIcon(getClass().getResource("/search.png")));
@@ -272,7 +311,7 @@ public class ProfessorView {
         panel2.add(voltarButton, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(4, 1, new Insets(0, 70, 0, 70), -1, -1));
-        panel1.add(panel3, new GridConstraints(1, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.add(panel3, new GridConstraints(1, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         CPFProf = new JTextField();
         CPFProf.setEditable(true);
         CPFProf.setEnabled(false);
@@ -280,7 +319,7 @@ public class ProfessorView {
         if (CPFProfFont != null) CPFProf.setFont(CPFProfFont);
         CPFProf.setHorizontalAlignment(0);
         CPFProf.setText("CPF");
-        CPFProf.setToolTipText("");
+        CPFProf.setToolTipText("CPF");
         panel3.add(CPFProf, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         NomeProf = new JTextField();
         NomeProf.setEnabled(false);
@@ -288,6 +327,7 @@ public class ProfessorView {
         if (NomeProfFont != null) NomeProf.setFont(NomeProfFont);
         NomeProf.setHorizontalAlignment(0);
         NomeProf.setText("Nome");
+        NomeProf.setToolTipText("Nome");
         NomeProf.putClientProperty("html.disable", Boolean.TRUE);
         panel3.add(NomeProf, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         AreaProf = new JTextField();
@@ -297,6 +337,7 @@ public class ProfessorView {
         if (AreaProfFont != null) AreaProf.setFont(AreaProfFont);
         AreaProf.setHorizontalAlignment(0);
         AreaProf.setText("Área de Atuação");
+        AreaProf.setToolTipText("Área de Atuação");
         AreaProf.putClientProperty("html.disable", Boolean.TRUE);
         panel3.add(AreaProf, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         PontuacaoProf = new JTextField();
@@ -305,6 +346,7 @@ public class ProfessorView {
         if (PontuacaoProfFont != null) PontuacaoProf.setFont(PontuacaoProfFont);
         PontuacaoProf.setHorizontalAlignment(0);
         PontuacaoProf.setText("Pontuação");
+        PontuacaoProf.setToolTipText("Pontuação");
         PontuacaoProf.putClientProperty("html.disable", Boolean.TRUE);
         panel3.add(PontuacaoProf, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         ExcluirButton = new JButton();
@@ -312,13 +354,16 @@ public class ProfessorView {
         ExcluirButton.setEnabled(true);
         ExcluirButton.setMargin(new Insets(0, 0, 0, 0));
         ExcluirButton.setText("Excluir");
-        panel1.add(ExcluirButton, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
+        panel1.add(ExcluirButton, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
         SalvarButton = new JButton();
         SalvarButton.setBackground(new Color(-16022238));
         SalvarButton.setEnabled(true);
         SalvarButton.setMargin(new Insets(0, 0, 0, 0));
         SalvarButton.setText("Salvar");
         panel1.add(SalvarButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
+        EditarButton = new JButton();
+        EditarButton.setText("Editar");
+        panel1.add(EditarButton, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
         PainelProfessor.addTab("Cadastro", panel4);
@@ -464,4 +509,5 @@ public class ProfessorView {
     public JComponent $$$getRootComponent$$$() {
         return Professor;
     }
+
 }

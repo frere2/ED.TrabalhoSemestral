@@ -47,6 +47,7 @@ public class InscricoesView {
     private JButton atualizarButton;
     private JButton InserirInscricaoButton;
     private JButton LimparInscricaoButton;
+    private JButton EditarButton;
 
     public static String SelectedInscricao = null;
 
@@ -151,7 +152,7 @@ public class InscricoesView {
             throw new RuntimeException(e);
         }
     }
-  
+
     private void addActionListeners(JFrame frame) {
         ActionListener updateClockAction = e -> {
             SimpleDateFormat sourceDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -231,8 +232,17 @@ public class InscricoesView {
                 return;
             }
 
-            // temporário, a att vai ocorrer aqui
-            JOptionPane.showMessageDialog(frame, "Inscrição salva com sucesso.");
+            String cpf = CPFProfInscricao.getText().replaceAll("\\D", "");
+            Inscricao inscricao = new Inscricao(cpf, CodDisciplinaInscricao.getText(), Integer.parseInt(CodProcessoInscricao.getText()));
+            try {
+                inscricoesController.alteraDados(inscricao);
+                JOptionPane.showMessageDialog(frame, "Inscrição salva com sucesso.");
+                CodDisciplinaInscricao.setEnabled(false);
+
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+
         });
 
         InserirInscricaoButton.addActionListener(e -> {
@@ -256,6 +266,9 @@ public class InscricoesView {
             String disciplina = InputDisciplinaInscricao.getSelectedItem().toString().split(" ")[0];
             Inscricao inscricao = new Inscricao(InputCPFInscricao.getText(), disciplina, Integer.parseInt(InputProcessoInscricao.getText()));
             boolean sucesso = inscricoesController.insere(inscricao);
+            InputCPFInscricao.setText("");
+            InputDisciplinaInscricao.setSelectedIndex(0);
+            InputProcessoInscricao.setText("");
             if (!sucesso) {
                 JOptionPane.showMessageDialog(frame, "Esse CPF já esta inscrito em um processo.");
                 return;
@@ -310,6 +323,20 @@ public class InscricoesView {
             setupTable(null);
             EscolhaDisciplinaLista.setSelectedIndex(0);
         });
+
+        EditarButton.addActionListener(e -> {
+            if (CodDisciplinaInscricao.getText().equals("Código da Disciplina")) {
+                CodDisciplinaInscricao.setEnabled(false);
+                return;
+            }
+
+            if (!CodDisciplinaInscricao.isEnabled()) {
+                CodDisciplinaInscricao.setEnabled(true);
+            } else {
+                CodDisciplinaInscricao.setEnabled(false);
+            }
+
+        });
     }
 
     private void ResetFields() {
@@ -339,13 +366,15 @@ public class InscricoesView {
         PainelInscricoes = new JTabbedPane();
         Inscricoes.add(PainelInscricoes, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(200, 200), null, 0, false));
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(5, 3, new Insets(0, 30, 0, 30), -1, -1));
+        panel1.setLayout(new GridLayoutManager(5, 4, new Insets(0, 30, 0, 30), -1, -1));
         PainelInscricoes.addTab("Consulta", panel1);
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(1, 3, new Insets(0, 30, 0, 30), -1, -1));
-        panel1.add(panel2, new GridConstraints(0, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.add(panel2, new GridConstraints(0, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         InputConsultaDisciplinaCPF = new JTextField();
+        InputConsultaDisciplinaCPF.setHorizontalAlignment(0);
         InputConsultaDisciplinaCPF.setText("");
+        InputConsultaDisciplinaCPF.setToolTipText("Digite o CPF do Professor");
         panel2.add(InputConsultaDisciplinaCPF, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         ButtonConsultaInscricao = new JButton();
         ButtonConsultaInscricao.setIcon(new ImageIcon(getClass().getResource("/search.png")));
@@ -362,7 +391,7 @@ public class InscricoesView {
         panel2.add(voltarButton, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(3, 1, new Insets(0, 70, 0, 70), -1, -1));
-        panel1.add(panel3, new GridConstraints(1, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.add(panel3, new GridConstraints(1, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         CPFProfInscricao = new JTextField();
         CPFProfInscricao.setEditable(true);
         CPFProfInscricao.setEnabled(false);
@@ -370,7 +399,7 @@ public class InscricoesView {
         if (CPFProfInscricaoFont != null) CPFProfInscricao.setFont(CPFProfInscricaoFont);
         CPFProfInscricao.setHorizontalAlignment(0);
         CPFProfInscricao.setText("CPF do Professor");
-        CPFProfInscricao.setToolTipText("");
+        CPFProfInscricao.setToolTipText("CPF do Professor");
         panel3.add(CPFProfInscricao, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         CodDisciplinaInscricao = new JTextField();
         CodDisciplinaInscricao.setEnabled(false);
@@ -378,7 +407,7 @@ public class InscricoesView {
         if (CodDisciplinaInscricaoFont != null) CodDisciplinaInscricao.setFont(CodDisciplinaInscricaoFont);
         CodDisciplinaInscricao.setHorizontalAlignment(0);
         CodDisciplinaInscricao.setText("Código da Disciplina");
-        CodDisciplinaInscricao.putClientProperty("html.disable", Boolean.TRUE);
+        CodDisciplinaInscricao.setToolTipText("Código da Disciplina");
         panel3.add(CodDisciplinaInscricao, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         CodProcessoInscricao = new JTextField();
         CodProcessoInscricao.setEditable(true);
@@ -387,6 +416,7 @@ public class InscricoesView {
         if (CodProcessoInscricaoFont != null) CodProcessoInscricao.setFont(CodProcessoInscricaoFont);
         CodProcessoInscricao.setHorizontalAlignment(0);
         CodProcessoInscricao.setText("Código do Processo");
+        CodProcessoInscricao.setToolTipText("Código do Processo");
         CodProcessoInscricao.putClientProperty("html.disable", Boolean.TRUE);
         panel3.add(CodProcessoInscricao, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         ExcluirButton = new JButton();
@@ -394,13 +424,16 @@ public class InscricoesView {
         ExcluirButton.setEnabled(true);
         ExcluirButton.setMargin(new Insets(0, 0, 0, 0));
         ExcluirButton.setText("Excluir");
-        panel1.add(ExcluirButton, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
+        panel1.add(ExcluirButton, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
         SalvarButton = new JButton();
         SalvarButton.setBackground(new Color(-16022238));
         SalvarButton.setEnabled(true);
         SalvarButton.setMargin(new Insets(0, 0, 0, 0));
         SalvarButton.setText("Salvar");
         panel1.add(SalvarButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
+        EditarButton = new JButton();
+        EditarButton.setText("Editar");
+        panel1.add(EditarButton, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(100, 30), new Dimension(140, 30), new Dimension(140, 30), 0, false));
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         PainelInscricoes.addTab("Cadastro", panel4);
@@ -441,7 +474,7 @@ public class InscricoesView {
         if (InputProcessoInscricaoFont != null) InputProcessoInscricao.setFont(InputProcessoInscricaoFont);
         InputProcessoInscricao.setHorizontalAlignment(0);
         InputProcessoInscricao.setText("");
-        InputProcessoInscricao.setToolTipText("Área de Atuação do Professor");
+        InputProcessoInscricao.setToolTipText("Código Processo Seletivo");
         InputProcessoInscricao.putClientProperty("html.disable", Boolean.TRUE);
         panel7.add(InputProcessoInscricao, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label1 = new JLabel();
@@ -454,6 +487,9 @@ public class InscricoesView {
         label3.setText("CPF do Professor");
         panel7.add(label3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         InputDisciplinaInscricao = new JComboBox();
+        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
+        InputDisciplinaInscricao.setModel(defaultComboBoxModel1);
+        InputDisciplinaInscricao.setToolTipText("Código da Disciplina");
         panel7.add(InputDisciplinaInscricao, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel8 = new JPanel();
         panel8.setLayout(new GridLayoutManager(1, 2, new Insets(0, 30, 0, 30), -1, -1));
@@ -541,4 +577,5 @@ public class InscricoesView {
     public JComponent $$$getRootComponent$$$() {
         return Inscricoes;
     }
+
 }

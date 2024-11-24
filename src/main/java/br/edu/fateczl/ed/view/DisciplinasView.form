@@ -40,7 +40,9 @@
                       </grid>
                     </constraints>
                     <properties>
+                      <horizontalAlignment value="0"/>
                       <text value=""/>
+                      <toolTipText value="Digite o Código da Disciplina"/>
                     </properties>
                   </component>
                   <component id="2f770" class="javax.swing.JButton" binding="ButtonConsultaDisciplina">
@@ -104,6 +106,7 @@
                       <font/>
                       <horizontalAlignment value="0"/>
                       <text value="Nome"/>
+                      <toolTipText value="Nome"/>
                     </properties>
                     <clientProperties>
                       <html.disable class="java.lang.Boolean" value="true"/>
@@ -120,7 +123,8 @@
                       <enabled value="false"/>
                       <font/>
                       <horizontalAlignment value="0"/>
-                      <text value="Horário de início"/>
+                      <text value="Horário da Disciplina"/>
+                      <toolTipText value="Horário da Disciplina"/>
                     </properties>
                     <clientProperties>
                       <html.disable class="java.lang.Boolean" value="true"/>
@@ -135,6 +139,7 @@
                       <font/>
                       <maximumRowCount value="100"/>
                       <name value="Curso"/>
+                      <toolTipText value="Curso"/>
                     </properties>
                   </component>
                   <component id="7a4c5" class="javax.swing.JTextField" binding="CargaHorariaDisciplina">
@@ -148,7 +153,8 @@
                       <enabled value="false"/>
                       <font/>
                       <horizontalAlignment value="0"/>
-                      <text value="Horas por Dia"/>
+                      <text value="Carga Horária da Disciplina"/>
+                      <toolTipText value="Carga Horária da Disciplina"/>
                     </properties>
                     <clientProperties>
                       <html.disable class="java.lang.Boolean" value="true"/>
@@ -159,6 +165,7 @@
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <editable value="false"/>
                       <enabled value="false"/>
                       <font/>
                       <model>
@@ -172,6 +179,9 @@
                       </model>
                       <name value=""/>
                     </properties>
+                    <clientProperties>
+                      <html.disable class="java.lang.Boolean" value="false"/>
+                    </clientProperties>
                   </component>
                 </children>
               </grid>
@@ -290,7 +300,7 @@
                           <font/>
                           <horizontalAlignment value="0"/>
                           <text value=""/>
-                          <toolTipText value="CPF do Professor"/>
+                          <toolTipText value="Código da Disciplina"/>
                         </properties>
                       </component>
                       <component id="b0a4e" class="javax.swing.JTextField" binding="InputNomeDisciplina">
@@ -304,7 +314,7 @@
                           <font/>
                           <horizontalAlignment value="0"/>
                           <text value=""/>
-                          <toolTipText value="Nome do Professor"/>
+                          <toolTipText value="Nome da Disciplina"/>
                         </properties>
                         <clientProperties>
                           <html.disable class="java.lang.Boolean" value="true"/>
@@ -338,7 +348,9 @@
                         <constraints>
                           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <toolTipText value="Curso"/>
+                        </properties>
                       </component>
                       <component id="93b3f" class="javax.swing.JLabel">
                         <constraints>
@@ -386,7 +398,7 @@
                           <font/>
                           <horizontalAlignment value="0"/>
                           <text value=""/>
-                          <toolTipText value="Nome do Professor"/>
+                          <toolTipText value="Horário da Disciplina"/>
                         </properties>
                         <clientProperties>
                           <html.disable class="java.lang.Boolean" value="true"/>
@@ -411,7 +423,7 @@
                           <font/>
                           <horizontalAlignment value="0"/>
                           <text value=""/>
-                          <toolTipText value="Nome do Professor"/>
+                          <toolTipText value="Carga Horária da Disciplina"/>
                         </properties>
                         <clientProperties>
                           <html.disable class="java.lang.Boolean" value="true"/>
