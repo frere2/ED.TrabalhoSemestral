@@ -24,13 +24,14 @@ import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class InscricoesView {
     private JTabbedPane PainelInscricoes;
     public JPanel Inscricoes;
     private JTextField InputConsultaDisciplinaCPF;
     private JButton ButtonConsultaInscricao;
-    private JTextField CodDisciplinaInscricao;
+    private JComboBox CodDisciplinaInscricao;
     private JTextField CodProcessoInscricao;
     private JTextField CPFProfInscricao;
     private JButton voltarButton;
@@ -144,7 +145,6 @@ public class InscricoesView {
             for (int i = 0; i < tamanho; i++) {
                 model1.addElement(listaDisciplina.get(i).getCodigo() + " - " + listaDisciplina.get(i).getNome());
             }
-
             EscolhaDisciplinaLista.setModel(model1);
             EscolhaDisciplinaLista.setSelectedIndex(0);
 
@@ -192,9 +192,44 @@ public class InscricoesView {
             }
 
             Inscricao inscricao = inscricoesController.consultaPorCPF(cpf);
+
+
+            Lista<Disciplina> listaDisciplina = new Lista<>();
+            DisciplinasController disciplinasController = new DisciplinasController(listaDisciplina);
+
+            try {
+                disciplinasController.populaLista();
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+
+                int tamanho = listaDisciplina.size();
+                for (int i = 0; i < tamanho; i++) {
+                    try {
+                        model.addElement(listaDisciplina.get(i).getCodigo() + " - " + listaDisciplina.get(i).getNome());
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+
+                CodDisciplinaInscricao.setModel(model);
+
             if (inscricao != null) {
                 CPFProfInscricao.setText(Utilities.FormatCPF(cpf));
-                CodDisciplinaInscricao.setText(inscricao.getCodigoDisciplina());
+
+                for (int i = 0; i < tamanho; i++) {
+                    try {
+                        if (Objects.equals(inscricao.getCodigoDisciplina(), listaDisciplina.get(i).getCodigo())) {
+                            CodDisciplinaInscricao.setSelectedIndex(i);
+                            break;
+                        }
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+
                 CodProcessoInscricao.setText(String.valueOf(inscricao.getCodigoProcesso()));
                 SelectedInscricao = cpf;
                 return;
@@ -227,13 +262,16 @@ public class InscricoesView {
             }
 
 
-            if (CPFProfInscricao.getText().isEmpty() || CodDisciplinaInscricao.getText().isEmpty() || CodProcessoInscricao.getText().isEmpty()) {
+            if (CPFProfInscricao.getText().isEmpty() || CodDisciplinaInscricao.getSelectedItem().equals("") || CodProcessoInscricao.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Preencha todos os campos.");
                 return;
             }
 
             String cpf = CPFProfInscricao.getText().replaceAll("\\D", "");
-            Inscricao inscricao = new Inscricao(cpf, CodDisciplinaInscricao.getText(), Integer.parseInt(CodProcessoInscricao.getText()));
+
+            String disciplina = CodDisciplinaInscricao.getSelectedItem().toString().split(" ")[0];
+
+            Inscricao inscricao = new Inscricao(cpf, disciplina, Integer.parseInt(CodProcessoInscricao.getText()));
             try {
                 inscricoesController.alteraDados(inscricao);
                 JOptionPane.showMessageDialog(frame, "Inscrição salva com sucesso.");
@@ -325,7 +363,7 @@ public class InscricoesView {
         });
 
         EditarButton.addActionListener(e -> {
-            if (CodDisciplinaInscricao.getText().equals("Código da Disciplina")) {
+            if (CPFProfInscricao.getText().equals("CPF do Professor")) {
                 CodDisciplinaInscricao.setEnabled(false);
                 return;
             }
@@ -341,7 +379,6 @@ public class InscricoesView {
 
     private void ResetFields() {
         InputConsultaDisciplinaCPF.setText("");
-        CodDisciplinaInscricao.setText("");
         CodProcessoInscricao.setText("");
         CPFProfInscricao.setText("");
     }
@@ -401,12 +438,10 @@ public class InscricoesView {
         CPFProfInscricao.setText("CPF do Professor");
         CPFProfInscricao.setToolTipText("CPF do Professor");
         panel3.add(CPFProfInscricao, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        CodDisciplinaInscricao = new JTextField();
+        CodDisciplinaInscricao = new JComboBox();
         CodDisciplinaInscricao.setEnabled(false);
         Font CodDisciplinaInscricaoFont = this.$$$getFont$$$(null, -1, -1, CodDisciplinaInscricao.getFont());
         if (CodDisciplinaInscricaoFont != null) CodDisciplinaInscricao.setFont(CodDisciplinaInscricaoFont);
-        CodDisciplinaInscricao.setHorizontalAlignment(0);
-        CodDisciplinaInscricao.setText("Código da Disciplina");
         CodDisciplinaInscricao.setToolTipText("Código da Disciplina");
         panel3.add(CodDisciplinaInscricao, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         CodProcessoInscricao = new JTextField();
